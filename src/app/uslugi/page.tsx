@@ -9,7 +9,6 @@ import {
   Truck,
   Wallet,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Услуги",
@@ -79,9 +78,12 @@ export default function ServicesPage() {
           Нужен подбор по VIN или счёт для организации? Оставьте заявку — ответим
           в рабочее время.
         </p>
-        <Button nativeButton={false} render={<Link href="/kontakty" />} className="h-10 px-5">
+        <Link
+          href="/kontakty"
+          className="inline-flex h-10 items-center rounded-lg bg-[#1a6fb5] px-5 text-sm font-medium text-white hover:bg-[#155d98]"
+        >
           Связаться
-        </Button>
+        </Link>
       </div>
     </div>
   );

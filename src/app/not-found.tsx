@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
@@ -8,9 +7,12 @@ export default function NotFound() {
       <p className="mt-3 text-[#5a7a96]">
         Проверьте адрес или найдите запчасть по артикулу в каталоге.
       </p>
-      <Button nativeButton={false} render={<Link href="/" />} className="mt-6 h-10 px-5">
+      <Link
+        href="/"
+        className="mt-6 inline-flex h-10 items-center rounded-lg bg-[#1a6fb5] px-5 text-sm font-medium text-white hover:bg-[#155d98]"
+      >
         На главную
-      </Button>
+      </Link>
     </div>
   );
 }

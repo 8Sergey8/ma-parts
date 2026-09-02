@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import type { Part } from "@/lib/types";
-import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-provider";
 
 export function AddToCart({ part }: { part: Part }) {
@@ -23,17 +22,18 @@ export function AddToCart({ part }: { part: Part }) {
           className="h-10 w-20 rounded-lg border border-input bg-white px-2 text-center"
         />
       </div>
-      <Button
-        className="h-11 w-full"
+      <button
+        type="button"
+        className="inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-lg bg-[#1a6fb5] text-sm font-medium text-white hover:bg-[#155d98]"
         onClick={() => {
           add(part, qty);
           setAdded(true);
-          setTimeout(() => setAdded(false), 1400);
+          window.setTimeout(() => setAdded(false), 1400);
         }}
       >
         <ShoppingCart className="size-4" />
         {added ? "Добавлено в корзину" : "Добавить в корзину"}
-      </Button>
+      </button>
     </div>
   );
 }

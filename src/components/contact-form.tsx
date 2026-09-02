@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { site } from "@/lib/site";
+
+const fieldClass =
+  "h-10 w-full rounded-lg border border-[#c5d9eb] bg-white px-2.5 text-sm text-[#152033] outline-none focus:border-[#1a6fb5]";
 
 export function ContactForm({
   defaultMessage = "",
@@ -69,50 +68,49 @@ export function ContactForm({
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="space-y-1.5">
-          <Label htmlFor="name">Имя *</Label>
-          <Input id="name" name="name" required className="h-10 bg-white" />
-        </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="phone">Телефон *</Label>
-          <Input
+        <label className="space-y-1.5 text-sm font-medium">
+          Имя *
+          <input id="name" name="name" required className={fieldClass} />
+        </label>
+        <label className="space-y-1.5 text-sm font-medium">
+          Телефон *
+          <input
             id="phone"
             name="phone"
             type="tel"
             required
             placeholder="+7"
-            className="h-10 bg-white"
+            className={fieldClass}
           />
-        </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="email">Эл. почта</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            className="h-10 bg-white"
-          />
-        </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="company">Компания (для юрлиц)</Label>
-          <Input id="company" name="company" className="h-10 bg-white" />
-        </div>
+        </label>
+        <label className="space-y-1.5 text-sm font-medium">
+          Эл. почта
+          <input id="email" name="email" type="email" className={fieldClass} />
+        </label>
+        <label className="space-y-1.5 text-sm font-medium">
+          Компания (для юрлиц)
+          <input id="company" name="company" className={fieldClass} />
+        </label>
       </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="message">Сообщение *</Label>
-        <Textarea
+      <label className="block space-y-1.5 text-sm font-medium">
+        Сообщение *
+        <textarea
           id="message"
           name="message"
           required
           defaultValue={defaultMessage}
-          className="min-h-28 bg-white"
+          className="min-h-28 w-full rounded-lg border border-[#c5d9eb] bg-white px-2.5 py-2 text-sm outline-none focus:border-[#1a6fb5]"
           placeholder="Артикул, VIN или описание детали"
         />
-      </div>
+      </label>
       {error && <p className="text-sm text-red-700">{error}</p>}
-      <Button type="submit" disabled={status === "loading"} className="h-10 px-6">
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        className="inline-flex h-10 items-center rounded-lg bg-[#1a6fb5] px-6 text-sm font-medium text-white hover:bg-[#155d98] disabled:opacity-50"
+      >
         {status === "loading" ? "Отправка…" : "Отправить заявку"}
-      </Button>
+      </button>
     </form>
   );
 }

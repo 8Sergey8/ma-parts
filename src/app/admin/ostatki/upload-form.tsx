@@ -2,9 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 export function InventoryUpload() {
   const router = useRouter();
@@ -49,25 +46,25 @@ export function InventoryUpload() {
       className="mt-6 space-y-4 rounded-2xl border border-[#d5e6f3] bg-white p-6"
     >
       <h2 className="font-semibold text-[#16324f]">Загрузка файла</h2>
-      <div className="space-y-1.5">
-        <Label htmlFor="key">API-ключ</Label>
-        <Input
+      <label className="block space-y-1.5 text-sm font-medium">
+        API-ключ
+        <input
           id="key"
           value={key}
           onChange={(e) => setKey(e.target.value)}
-          className="h-10 bg-[#f4f9fd]"
+          className="h-10 w-full rounded-lg border border-[#c5d9eb] bg-[#f4f9fd] px-2.5 text-sm"
         />
-      </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="file">CSV или Excel (ежедневный прайс)</Label>
-        <Input
+      </label>
+      <label className="block space-y-1.5 text-sm font-medium">
+        CSV или Excel (ежедневный прайс)
+        <input
           id="file"
           name="file"
           type="file"
           accept=".csv,.txt,.xlsx,.xls"
-          className="h-10 bg-[#f4f9fd] pt-1.5"
+          className="h-10 w-full rounded-lg border border-[#c5d9eb] bg-[#f4f9fd] px-2 py-1.5 text-sm"
         />
-      </div>
+      </label>
       <div className="flex gap-4 text-sm">
         <label className="flex items-center gap-2">
           <input
@@ -86,9 +83,13 @@ export function InventoryUpload() {
           Обновить и добавить
         </label>
       </div>
-      <Button type="submit" disabled={busy} className="h-10 px-5">
+      <button
+        type="submit"
+        disabled={busy}
+        className="inline-flex h-10 items-center rounded-lg bg-[#1a6fb5] px-5 text-sm font-medium text-white hover:bg-[#155d98] disabled:opacity-50"
+      >
         {busy ? "Загрузка…" : "Загрузить наличие"}
-      </Button>
+      </button>
       {log && <p className="text-sm text-[#0b3a6e]">{log}</p>}
       <p className="text-xs text-[#5a7a96]">
         Колонки: article / артикул, name / название, brand / марка, category,

@@ -12,7 +12,6 @@ import { BrandLogos } from "@/components/brand-logos";
 import { CarShowcase } from "@/components/car-showcase";
 import { PartCard } from "@/components/part-card";
 import { SearchBar } from "@/components/search-bar";
-import { Button } from "@/components/ui/button";
 import { searchParts } from "@/lib/parts-store";
 import { site } from "@/lib/site";
 
@@ -44,17 +43,18 @@ export default async function HomePage() {
             </p>
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Button nativeButton={false} render={<Link href="/katalog" />} className="h-10 px-5">
+            <Link
+              href="/katalog"
+              className="inline-flex h-10 items-center rounded-lg bg-[#1a6fb5] px-5 text-sm font-medium text-white hover:bg-[#155d98]"
+            >
               Открыть каталог
-            </Button>
-            <Button
-              nativeButton={false}
-              render={<Link href="/kontakty" />}
-              variant="outline"
-              className="h-10 px-5"
+            </Link>
+            <Link
+              href="/kontakty"
+              className="inline-flex h-10 items-center rounded-lg border border-[#c5d9eb] bg-white px-5 text-sm font-medium text-[#0b3a6e] hover:bg-[#eef6fc]"
             >
               Заявка по VIN
-            </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -75,9 +75,12 @@ export default async function HomePage() {
               Популярные оригинальные позиции со склада в Москве
             </p>
           </div>
-          <Button nativeButton={false} render={<Link href="/katalog" />} variant="outline">
+          <Link
+            href="/katalog"
+            className="inline-flex h-8 items-center rounded-lg border border-[#c5d9eb] bg-white px-3 text-sm font-medium text-[#0b3a6e] hover:bg-[#eef6fc]"
+          >
             Весь каталог
-          </Button>
+          </Link>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {popular.map((part) => (

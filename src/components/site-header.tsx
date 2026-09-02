@@ -3,18 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Phone, ShoppingCart } from "lucide-react";
+import { Phone, ShoppingCart } from "lucide-react";
 import { site, nav } from "@/lib/site";
 import { useCart } from "@/components/cart-provider";
 import { SearchBar } from "@/components/search-bar";
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { MobileNav } from "@/components/mobile-nav";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
@@ -64,11 +57,9 @@ export function SiteHeader() {
             <Phone className="size-4" />
             <span className="font-semibold">{site.phonePretty}</span>
           </a>
-          <Button
-            nativeButton={false}
-            render={<Link href="/korzina" />}
-            variant="outline"
-            className="relative h-10 px-3"
+          <Link
+            href="/korzina"
+            className="relative inline-flex h-10 items-center gap-1.5 rounded-lg border border-[#c5d9eb] bg-white px-3 text-sm font-medium text-[#0b3a6e] hover:bg-[#eef6fc]"
           >
             <ShoppingCart className="size-4" />
             <span className="hidden sm:inline">Корзина</span>
@@ -77,42 +68,8 @@ export function SiteHeader() {
                 {count}
               </span>
             )}
-          </Button>
-          <Sheet>
-            <SheetTrigger
-              render={
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="lg:hidden"
-                  aria-label="Меню"
-                />
-              }
-            >
-              <Menu className="size-4" />
-            </SheetTrigger>
-            <SheetContent side="right" className="w-80">
-              <SheetHeader>
-                <SheetTitle>MBA-parts</SheetTitle>
-              </SheetHeader>
-              <nav className="flex flex-col gap-1 px-4">
-                {nav.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "rounded-lg px-3 py-2 text-sm",
-                      pathname === item.href
-                        ? "bg-[#e8f3fb] font-semibold text-[#0b3a6e]"
-                        : "text-[#2c4a66]",
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </nav>
-            </SheetContent>
-          </Sheet>
+          </Link>
+          <MobileNav />
         </div>
       </div>
 

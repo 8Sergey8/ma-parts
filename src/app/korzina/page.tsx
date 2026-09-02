@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ContactForm } from "@/components/contact-form";
-import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-provider";
 import { formatPrice } from "@/lib/format";
 
@@ -18,13 +17,12 @@ export default function CartPage() {
         <p className="mt-3 text-[#5a7a96]">
           Найдите запчасть по артикулу в каталоге и добавьте её в заказ.
         </p>
-        <Button
-          nativeButton={false}
-          render={<Link href="/katalog" />}
-          className="mt-6 h-10 px-5"
+        <Link
+          href="/katalog"
+          className="mt-6 inline-flex h-10 items-center rounded-lg bg-[#1a6fb5] px-5 text-sm font-medium text-white hover:bg-[#155d98]"
         >
           Перейти в каталог
-        </Button>
+        </Link>
       </div>
     );
   }
@@ -63,9 +61,13 @@ export default function CartPage() {
                 <div className="w-28 text-right font-semibold">
                   {formatPrice(item.price * item.qty)}
                 </div>
-                <Button variant="ghost" onClick={() => remove(item.article)}>
+                <button
+                  type="button"
+                  className="text-sm text-[#5a7a96] hover:text-[#0b3a6e]"
+                  onClick={() => remove(item.article)}
+                >
                   Удалить
-                </Button>
+                </button>
               </div>
             </div>
           ))}

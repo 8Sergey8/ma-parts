@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import type { Part } from "@/lib/types";
 import { formatPrice, stockLabel } from "@/lib/format";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/components/cart-provider";
 import { BrandMark } from "@/components/brand-mark";
@@ -49,25 +48,24 @@ export function PartCard({ part }: { part: Part }) {
           </span>
         </div>
         <div className="flex gap-2">
-          <Button
-            className="h-9 flex-1"
+          <button
+            type="button"
+            className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-lg bg-[#1a6fb5] px-3 text-sm font-medium text-white hover:bg-[#155d98]"
             onClick={() => {
               add(part);
               setAdded(true);
-              setTimeout(() => setAdded(false), 1200);
+              window.setTimeout(() => setAdded(false), 1200);
             }}
           >
             <ShoppingCart className="size-4" />
             {added ? "Добавлено" : "В корзину"}
-          </Button>
-          <Button
-            nativeButton={false}
-            render={<Link href={`/katalog/${part.article}`} />}
-            variant="outline"
-            className="h-9"
+          </button>
+          <Link
+            href={`/katalog/${part.article}`}
+            className="inline-flex h-9 items-center justify-center rounded-lg border border-[#c5d9eb] px-3 text-sm font-medium text-[#0b3a6e] hover:bg-[#eef6fc]"
           >
             Карточка
-          </Button>
+          </Link>
         </div>
       </div>
     </article>

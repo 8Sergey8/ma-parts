@@ -22,9 +22,10 @@ type CartContextValue = {
 };
 
 const STORAGE_KEY = "mba-parts-cart";
+const EMPTY_CART: CartItem[] = [];
 const CartContext = createContext<CartContextValue | null>(null);
 
-let memory: CartItem[] = [];
+let memory: CartItem[] = EMPTY_CART;
 const listeners = new Set<() => void>();
 
 function emit() {
@@ -34,9 +35,11 @@ function emit() {
 function readStorage(): CartItem[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as CartItem[]) : [];
+    if (!raw) return EMPTY_CART;
+    const parsed = JSON.parse(raw) as CartItem[];
+    return Array.isArray(parsed) ? parsed : EMPTY_CART;
   } catch {
-    return [];
+    return EMPTY_CART;
   }
 }
 
@@ -44,8 +47,8 @@ function getSnapshot() {
   return memory;
 }
 
-function getServerSnapshot(): CartItem[] {
-  return [];
+function getServerSnapshot() {
+  return EMPTY_CART;
 }
 
 function subscribe(listener: () => void) {
@@ -54,9 +57,9 @@ function subscribe(listener: () => void) {
 }
 
 function write(next: CartItem[]) {
-  memory = next;
+  memory = next.length === 0 ? EMPTY_CART : next;
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(memory));
   } catch {
     /* ignore */
   }
@@ -101,7 +104,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     };
     const remove = (article: string) =>
       write(getSnapshot().filter((i) => i.article !== article));
-    const clear = () => write([]);
+    const clear = () => write(EMPTY_CART);
     const count = items.reduce((s, i) => s + i.qty, 0);
     const total = items.reduce((s, i) => s + i.qty * i.price, 0);
     return { items, add, setQty, remove, clear, count, total };
