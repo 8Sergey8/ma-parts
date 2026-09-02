@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { AddToCart } from "./add-to-cart";
 import { Badge } from "@/components/ui/badge";
 import { BrandMark } from "@/components/brand-mark";
+import { relatedParts } from "@/lib/catalog";
 import { getPart, searchParts } from "@/lib/parts-store";
 import { formatPrice, stockLabel } from "@/lib/format";
 import { brandHref } from "@/lib/brands";
@@ -32,9 +33,11 @@ export default async function PartPage({
   const { article } = await params;
   const part = await getPart(article);
   if (!part) notFound();
-  const related = (await searchParts({ brand: part.brand }))
-    .filter((p) => p.article !== part.article)
-    .slice(0, 3);
+  const related = relatedParts(
+    part,
+    await searchParts({ brand: part.brand }),
+    3,
+  );
   const stock = stockLabel(part.stock, part.deliveryDays);
 
   return (

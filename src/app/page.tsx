@@ -8,13 +8,13 @@ import {
   Truck,
   Wallet,
 } from "lucide-react";
+import { BrandCatalogSections } from "@/components/brand-catalog";
 import { BrandLogos } from "@/components/brand-logos";
 import { CarShowcase } from "@/components/car-showcase";
-import { PartCard } from "@/components/part-card";
 import { SearchBar } from "@/components/search-bar";
 import { VinSearch } from "@/components/vin-search";
+import { featuredByBrand } from "@/lib/catalog";
 import { loadInventory } from "@/lib/parts-store";
-import { BRANDS } from "@/lib/types";
 import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -26,9 +26,14 @@ export default async function HomePage({
 }) {
   const { added } = await searchParams;
   const inventory = await loadInventory();
-  const popular = BRANDS.map((brand) =>
-    inventory.parts.find((part) => part.brand === brand && part.stock > 0),
-  ).filter((part): part is NonNullable<typeof part> => Boolean(part));
+  const byBrand = featuredByBrand(inventory.parts, 3);
+  const remaining = Object.fromEntries(
+    byBrand.map((group) => {
+      const total = inventory.parts.filter((part) => part.brand === group.brand)
+        .length;
+      return [group.brand, Math.max(0, total - group.parts.length)];
+    }),
+  );
 
   return (
     <div>
@@ -38,13 +43,13 @@ export default async function HomePage({
             Интернет-магазин оригинальных автозапчастей
           </p>
           <h1 className="max-w-3xl text-3xl leading-tight font-bold text-[#0b3a6e] md:text-5xl">
-            Оригинальные запчасти для BMW, Mercedes-Benz и VAG Group
+            Оригинальные запчасти для всех марок MBA-parts
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#2c4a66] md:text-lg">
-            MBA-parts с {site.foundedYear} года поставляет только оригинальные
-            детали официальных дилеров: BMW, Mercedes-Benz, Audi, Škoda,
-            Volkswagen, Porsche и Bentley. Проверка на целостность и
-            оригинальность каждой позиции, гарантия и доставка по России.
+            MBA-parts с {site.foundedYear} года поставляет оригинал дилеров на
+            BMW, Mercedes-Benz, Audi, Škoda, Volkswagen, Porsche и Bentley —
+            не только на три автомобиля с фото ниже. Проверка каждой позиции,
+            гарантия и доставка по России.
           </p>
           <div className="mt-8 max-w-2xl">
             <SearchBar size="lg" />
@@ -75,21 +80,20 @@ export default async function HomePage({
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 py-10">
-        <CarShowcase />
-      </div>
-
       <div className="bg-white">
-        <BrandLogos />
+        <BrandLogos title="Каталог и подбор — по всем семи маркам" />
       </div>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-[#16324f]">В наличии на складе</h2>
-            <p className="mt-1 text-sm text-[#5a7a96]">
-              По одной оригинальной позиции каждой марки: BMW, Mercedes-Benz,
-              Audi, Škoda, Volkswagen, Porsche, Bentley
+            <h2 className="text-2xl font-bold text-[#16324f]">
+              Склад по маркам
+            </h2>
+            <p className="mt-1 max-w-2xl text-sm text-[#5a7a96]">
+              Карточки запчастей для BMW, Mercedes-Benz, Audi, Škoda,
+              Volkswagen, Porsche и Bentley. Фото G81, G63 и 911 — витрина,
+              не ограничение ассортимента.
             </p>
           </div>
           <Link
@@ -99,16 +103,16 @@ export default async function HomePage({
             Весь каталог
           </Link>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {popular.map((part) => (
-            <PartCard
-              key={part.article}
-              part={part}
-              justAdded={added === part.article}
-            />
-          ))}
-        </div>
+        <BrandCatalogSections
+          groups={byBrand}
+          added={added}
+          remaining={remaining}
+        />
       </section>
+
+      <div className="mx-auto max-w-6xl px-4 pb-12">
+        <CarShowcase />
+      </div>
 
       <section className="bg-white py-12">
         <div className="mx-auto max-w-6xl px-4">

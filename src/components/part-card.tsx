@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import type { Part } from "@/lib/types";
+import { formatApplicability } from "@/lib/catalog";
 import { formatPrice, stockLabel } from "@/lib/format";
 import { BrandMark } from "@/components/brand-mark";
 
@@ -32,7 +33,7 @@ export function PartCard({
       </p>
       <p className="mt-2 font-mono text-sm text-[#0b3a6e]">{part.article}</p>
       <p className="mt-1 text-xs text-[#5a7a96]">
-        {part.applicability.slice(0, 4).join(", ")}
+        {formatApplicability(part.applicability)}
       </p>
       <div className="mt-auto pt-4">
         <div className="mb-3 flex items-end justify-between">

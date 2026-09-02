@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
 import { PartCard } from "@/components/part-card";
 import { VinSearch } from "@/components/vin-search";
+import { brandHref } from "@/lib/brands";
 import { lookupByVin } from "@/lib/vin";
 
 export const dynamic = "force-dynamic";
@@ -30,8 +31,9 @@ export default async function VinPage({
       <p className="mt-3 max-w-3xl text-[#2c4a66]">
         Введите 17-значный VIN. Определяем марку из списка MBA-parts (BMW,
         Mercedes-Benz, Audi, Škoda, Volkswagen, Porsche, Bentley) и показываем
-        склад этой марки. Совпадение кузова помечается отдельно. Три фото на
-        главной — только витрина, не фильтр каталога.
+        склад этой марки — BMW, Mercedes-Benz, Audi, Škoda, Volkswagen,
+        Porsche или Bentley. Совпадение кузова помечается отдельно. Три фото
+        на главной — только витрина, не фильтр каталога.
       </p>
       <div className="mt-6 max-w-2xl">
         <VinSearch defaultValue={result?.vin || vin} />
@@ -102,7 +104,11 @@ export default async function VinPage({
                   : ""}
               </h2>
               <Link
-                href={`/katalog?brand=${encodeURIComponent(result.vehicle.brand ?? "")}`}
+                href={
+                  result.vehicle.brand
+                    ? brandHref(result.vehicle.brand)
+                    : "/katalog"
+                }
                 className="text-sm font-medium text-[#1a6fb5] hover:underline"
               >
                 Вся марка в каталоге

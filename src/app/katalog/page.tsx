@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { CatalogFilters } from "./filters";
+import { BrandCatalogSections } from "@/components/brand-catalog";
 import { PartCard } from "@/components/part-card";
+import { groupPartsByBrand, sortCatalogParts } from "@/lib/catalog";
 import { searchParts } from "@/lib/parts-store";
 import { brands } from "@/lib/brands";
 
@@ -39,14 +41,15 @@ export default async function CatalogPage({
     <div className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="text-3xl font-bold text-[#0b3a6e]">Каталог запчастей</h1>
       <p className="mt-2 mb-6 max-w-3xl text-[#2c4a66]">
-        Оригинальные OEM-детали для BMW, Mercedes-Benz, Audi, Škoda,
+        Склад разложен по всем маркам сайта: BMW, Mercedes-Benz, Audi, Škoda,
         Volkswagen, Porsche и Bentley. Три автомобиля на главной — только
-        фото. Каталог не ограничен G20, G-Class или 911.
+        фото витрины, не фильтр карточек.
       </p>
       <CatalogFilters q={q} brand={brand} category={category} />
       <p className="mt-6 mb-4 text-sm text-[#5a7a96]">
         Найдено позиций: {parts.length}
         {q ? ` по запросу «${q}»` : ""}
+        {brandName ? ` · ${brandName}` : " · все марки"}
       </p>
       {parts.length === 0 ? (
         <div className="rounded-xl border border-[#d5e6f3] bg-white p-8 text-center">
@@ -59,9 +62,9 @@ export default async function CatalogPage({
             — подберём оригинал и привезём из Европы.
           </p>
         </div>
-      ) : (
+      ) : brandName ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {parts.map((part) => (
+          {sortCatalogParts(parts).map((part) => (
             <PartCard
               key={part.article}
               part={part}
@@ -69,6 +72,11 @@ export default async function CatalogPage({
             />
           ))}
         </div>
+      ) : (
+        <BrandCatalogSections
+          groups={groupPartsByBrand(parts)}
+          added={added}
+        />
       )}
     </div>
   );
