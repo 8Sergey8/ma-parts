@@ -32,7 +32,7 @@ npm start
 
 ## Что есть на сайте
 
-- Главная: марки, BMW G81, Mercedes-Benz G63, Porsche 911 992 Targa, поиск по артикулу
+- Главная: марки, BMW G81, Mercedes-Benz G63, Porsche 911 992 Targa, поиск по артикулу и подбор по VIN
 - Каталог и карточки OEM-деталей
 - Услуги: оригинал, нал/безнал, гарантия, отсрочка для юрлиц, доставка, заказ из Европы
 - Контакты: +7 915 308-88-84, Москва, ул. Кедрова, 13к2, mbaparts888@gmail.com, MAX
@@ -66,6 +66,11 @@ curl -X POST http://localhost:43123/api/parts/upload \
 Колонки файла: `article` (артикул), `name` (название), `brand` (марка), `category`, `price` (цена), `stock` (остаток), `warehouse`, `applicability`, `description`.
 
 Марки в поле brand: `BMW`, `Mercedes-Benz`, `Audi`, `Škoda`, `Volkswagen`, `Porsche`, `Bentley`.
+
+```bash
+# Подбор по VIN
+curl "http://localhost:43123/api/vin?vin=WBA31CM0705A12345"
+```
 
 ## Стек
 

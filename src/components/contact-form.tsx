@@ -7,10 +7,12 @@ export function ContactForm({
   defaultMessage = "",
   sent = false,
   error = false,
+  next = "/kontakty",
 }: {
   defaultMessage?: string;
   sent?: boolean;
   error?: boolean;
+  next?: string;
 }) {
   if (sent) {
     return (
@@ -24,6 +26,7 @@ export function ContactForm({
   return (
     <form action="/api/inquiries" method="post" className="space-y-4">
       <input type="hidden" name="type" value="contact" />
+      <input type="hidden" name="next" value={next} />
       {error && (
         <p className="text-sm text-red-700">
           Укажите имя, телефон и сообщение.

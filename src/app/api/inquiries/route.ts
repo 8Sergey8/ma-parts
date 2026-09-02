@@ -85,6 +85,12 @@ export async function POST(request: Request) {
   if ((request.headers.get("content-type") ?? "").includes("application/json")) {
     return NextResponse.json({ ok: true, id: inquiry.id });
   }
-  const dest = inquiry.type === "order" ? "/korzina?sent=1" : "/kontakty?sent=1";
+  if (inquiry.type === "order") {
+    return redirectTo(request, "/korzina?sent=1");
+  }
+  const nextRaw = String(body.next ?? "/kontakty");
+  const nextPath =
+    nextRaw.startsWith("/") && !nextRaw.startsWith("//") ? nextRaw : "/kontakty";
+  const dest = nextPath.includes("?") ? `${nextPath}&sent=1` : `${nextPath}?sent=1`;
   return redirectTo(request, dest);
 }

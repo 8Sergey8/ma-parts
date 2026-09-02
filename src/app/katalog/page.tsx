@@ -51,8 +51,11 @@ export default async function CatalogPage({
         <div className="rounded-xl border border-[#d5e6f3] bg-white p-8 text-center">
           <p className="font-semibold text-[#16324f]">Ничего не найдено</p>
           <p className="mt-2 text-sm text-[#5a7a96]">
-            Проверьте артикул или оставьте заявку в разделе «Контакты» — подберём
-            оригинал по VIN и привезём из Европы.
+            Проверьте артикул или откройте{" "}
+            <a href="/podbor-vin" className="font-medium text-[#1a6fb5] hover:underline">
+              подбор по VIN
+            </a>{" "}
+            — подберём оригинал и привезём из Европы.
           </p>
         </div>
       ) : (

@@ -12,6 +12,7 @@ import { BrandLogos } from "@/components/brand-logos";
 import { CarShowcase } from "@/components/car-showcase";
 import { PartCard } from "@/components/part-card";
 import { SearchBar } from "@/components/search-bar";
+import { VinSearch } from "@/components/vin-search";
 import { searchParts } from "@/lib/parts-store";
 import { site } from "@/lib/site";
 
@@ -47,6 +48,12 @@ export default async function HomePage({
               Ищите по OEM-артикулу. Нет в наличии — привезём из Европы.
             </p>
           </div>
+          <div className="mt-6 max-w-2xl">
+            <p className="mb-2 text-sm font-semibold text-[#0b3a6e]">
+              Подбор по VIN автомобиля
+            </p>
+            <VinSearch />
+          </div>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href="/katalog"
@@ -55,10 +62,10 @@ export default async function HomePage({
               Открыть каталог
             </Link>
             <Link
-              href="/kontakty"
+              href="/podbor-vin"
               className="inline-flex h-10 items-center rounded-lg border border-[#c5d9eb] bg-white px-5 text-sm font-medium text-[#0b3a6e] hover:bg-[#eef6fc]"
             >
-              Заявка по VIN
+              Как работает VIN
             </Link>
           </div>
         </div>

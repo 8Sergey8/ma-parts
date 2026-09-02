@@ -19,6 +19,7 @@ export const site = {
 export const nav = [
   { href: "/", label: "Главная" },
   { href: "/katalog", label: "Каталог" },
+  { href: "/podbor-vin", label: "Подбор по VIN" },
   { href: "/uslugi", label: "Услуги" },
   { href: "/o-kompanii", label: "О компании" },
   { href: "/blog", label: "Блог" },
