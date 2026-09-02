@@ -21,7 +21,7 @@ export type VinLookup =
       vin: string;
       vehicle: VinVehicle;
       parts: Part[];
-      match: "chassis" | "brand";
+      match: "chassis" | "none";
     }
   | {
       ok: false;
@@ -93,28 +93,78 @@ const YEAR_CODE: Record<string, number> = {
   "9": 2009,
 };
 
-const MODEL_CODES: { test: RegExp; codes: string[] }[] = [
-  { test: /g81|m3 touring/i, codes: ["G81", "G80"] },
-  { test: /m3|m4|g80|g82/i, codes: ["G80", "G81", "G82"] },
-  { test: /3[-\s]?series|320|330|318|g20|g21/i, codes: ["G20", "G21", "G80", "G81"] },
-  { test: /2[-\s]?series|g42/i, codes: ["G42"] },
-  { test: /g-class|g 63|g63|g 350|g 400|g 500|gelandewagen|w463|w464/i, codes: ["W463", "W464", "G63"] },
-  { test: /e-class|e 220|e 300|w213/i, codes: ["W213", "W205"] },
-  { test: /c-class|c 200|c 300|w205/i, codes: ["W205"] },
-  { test: /911|992|targa/i, codes: ["911 992", "992", "992 Targa"] },
-  { test: /cayenne/i, codes: ["Cayenne", "Cayenne Coupe"] },
-  { test: /a4|a5|q5|b9/i, codes: ["B9", "A4", "A5", "Q5"] },
-  { test: /a6|a7|c8/i, codes: ["C8"] },
-  { test: /golf/i, codes: ["Golf 7", "Golf 8"] },
-  { test: /tiguan/i, codes: ["Tiguan"] },
-  { test: /passat/i, codes: ["Passat B8"] },
-  { test: /octavia/i, codes: ["Octavia", "Octavia A7", "Octavia A8"] },
-  { test: /superb/i, codes: ["Superb"] },
-  { test: /kodiaq|karoq/i, codes: ["Kodiaq", "Karoq"] },
-  { test: /polo|rapid/i, codes: ["Polo", "Rapid"] },
-  { test: /continental|flying spur/i, codes: ["Continental GT", "Flying Spur"] },
-  { test: /bentayga/i, codes: ["Bentayga", "Bentayga V8"] },
-];
+function chassisCodes(hay: string, year?: number) {
+  const codes = new Set<string>();
+  const yearNum = year ?? 0;
+
+  const explicit = hay.match(/\b(?:G|F|W)\d{2,3}\b/gi) ?? [];
+  for (const code of explicit) codes.add(code.toUpperCase());
+
+  if (/\bm3 touring\b|\bg81\b/i.test(hay)) {
+    codes.add("G81");
+    codes.add("G80");
+  } else if (/\bm3\b|\bm4\b|\bg80\b|\bg82\b/i.test(hay)) {
+    codes.add("G80");
+    codes.add("G82");
+  } else if (/3[-\s]?series|\b320|\b330|\b318|\bg20|\bg21/i.test(hay)) {
+    if (yearNum >= 2019 || !yearNum) {
+      codes.add("G20");
+      codes.add("G21");
+    }
+  }
+
+  if (/2[-\s]?series|\bg42/i.test(hay)) codes.add("G42");
+
+  if (/g-class|gelandewagen|\bw463|\bw464|\bg 63|\bg63/i.test(hay)) {
+    if (yearNum >= 2018 || !yearNum) codes.add("W464");
+    if (yearNum && yearNum < 2018) codes.add("W463");
+    if (/\bamg\b|\bg 63|\bg63/i.test(hay)) codes.add("G63");
+  }
+
+  if (/e-class|\be 220|\be 300|\bw213/i.test(hay)) codes.add("W213");
+  if (/c-class|\bc 200|\bc 300|\bw205/i.test(hay)) codes.add("W205");
+
+  if (/\b911\b|\b992\b|targa/i.test(hay)) {
+    codes.add("911 992");
+    codes.add("992");
+    if (/targa/i.test(hay)) codes.add("992 Targa");
+  }
+  if (/cayenne/i.test(hay)) {
+    codes.add("Cayenne");
+    codes.add("Cayenne Coupe");
+  }
+
+  if (/\ba4\b|\ba5\b|\bq5\b|\bb9\b/i.test(hay)) {
+    codes.add("B9");
+    codes.add("A4");
+    codes.add("A5");
+    codes.add("Q5");
+  }
+  if (/\ba6\b|\ba7\b|\bc8\b/i.test(hay)) codes.add("C8");
+
+  if (/golf/i.test(hay)) codes.add(yearNum >= 2020 ? "Golf 8" : "Golf 7");
+  if (/tiguan/i.test(hay)) codes.add("Tiguan");
+  if (/passat/i.test(hay)) codes.add("Passat B8");
+  if (/octavia/i.test(hay)) {
+    codes.add("Octavia");
+    codes.add(yearNum >= 2020 ? "Octavia A8" : "Octavia A7");
+  }
+  if (/superb/i.test(hay)) codes.add("Superb");
+  if (/kodiaq/i.test(hay)) codes.add("Kodiaq");
+  if (/karoq/i.test(hay)) codes.add("Karoq");
+  if (/polo/i.test(hay)) codes.add("Polo");
+  if (/rapid/i.test(hay)) codes.add("Rapid");
+  if (/continental|flying spur/i.test(hay)) {
+    codes.add("Continental GT");
+    codes.add("Flying Spur");
+  }
+  if (/bentayga/i.test(hay)) {
+    codes.add("Bentayga");
+    codes.add("Bentayga V8");
+  }
+
+  return [...codes];
+}
 
 export function normalizeVin(value: string) {
   return value.toUpperCase().replace(/[^A-HJ-NPR-Z0-9]/g, "").slice(0, 17);
@@ -137,15 +187,8 @@ function brandFromWmi(vin: string): Brand | undefined {
   return WMI[vin.slice(0, 3)];
 }
 
-function codesFromText(...chunks: string[]) {
-  const hay = chunks.filter(Boolean).join(" ");
-  const codes = new Set<string>();
-  const chassis = hay.match(/\b[GW]\d{2,3}\b/gi) ?? [];
-  for (const code of chassis) codes.add(code.toUpperCase());
-  for (const row of MODEL_CODES) {
-    if (row.test.test(hay)) row.codes.forEach((c) => codes.add(c));
-  }
-  return [...codes];
+function codesFromText(year: number | undefined, ...chunks: string[]) {
+  return chassisCodes(chunks.filter(Boolean).join(" "), year);
 }
 
 function clean(value: string | undefined) {
@@ -185,7 +228,15 @@ async function decodeNhtsa(vin: string): Promise<Partial<VinVehicle> | null> {
       year,
       engine,
       brand,
-      codes: codesFromText(make, model, series, body, clean(row.Trim), clean(row.VehicleType)),
+      codes: codesFromText(
+        year,
+        make,
+        model,
+        series,
+        body,
+        clean(row.Trim),
+        clean(row.VehicleType),
+      ),
       source: "nhtsa",
     };
   } catch {
@@ -203,7 +254,7 @@ export async function decodeVin(vin: string): Promise<VinVehicle> {
   const model = nhtsa?.model || "";
   const codes = nhtsa?.codes?.length
     ? nhtsa.codes
-    : codesFromText(make, model, brand ?? "");
+    : codesFromText(year, make, model, brand ?? "");
   return {
     vin,
     brand,
@@ -218,28 +269,35 @@ export async function decodeVin(vin: string): Promise<VinVehicle> {
   };
 }
 
-function scorePart(part: Part, vehicle: VinVehicle) {
-  const hay = `${part.applicability.join(" ")} ${part.name} ${part.description}`.toLowerCase();
-  let score = 0;
-  for (const code of vehicle.codes) {
-    if (hay.includes(code.toLowerCase())) score += 5;
-  }
-  if (vehicle.model && hay.includes(vehicle.model.toLowerCase())) score += 3;
-  if (part.stock > 0) score += 1;
-  return score;
+function applicabilityTokens(part: Part) {
+  return part.applicability.flatMap((item) =>
+    item
+      .toLowerCase()
+      .split(/[\s,/]+/)
+      .map((token) => token.trim())
+      .filter(Boolean),
+  );
+}
+
+function partFitsVehicle(part: Part, vehicle: VinVehicle) {
+  if (part.brand !== vehicle.brand) return false;
+  if (!vehicle.codes.length) return false;
+  const tokens = applicabilityTokens(part);
+  const joined = part.applicability.map((item) => item.toLowerCase());
+  return vehicle.codes.some((code) => {
+    const needle = code.toLowerCase();
+    return (
+      joined.includes(needle) ||
+      tokens.includes(needle) ||
+      joined.some((item) => item === needle || item.endsWith(` ${needle}`))
+    );
+  });
 }
 
 export function matchParts(parts: Part[], vehicle: VinVehicle) {
-  const branded = parts.filter((p) => p.brand === vehicle.brand);
-  const ranked = branded
-    .map((part) => ({ part, score: scorePart(part, vehicle) }))
-    .sort((a, b) => b.score - a.score || b.part.stock - a.part.stock);
-  const chassis = ranked.filter((row) => row.score >= 5).map((row) => row.part);
-  if (chassis.length) return { parts: chassis, mode: "chassis" as const };
-  return {
-    parts: ranked.map((row) => row.part),
-    mode: "brand" as const,
-  };
+  const confirmed = parts.filter((part) => partFitsVehicle(part, vehicle));
+  if (confirmed.length) return { parts: confirmed, mode: "chassis" as const };
+  return { parts: [], mode: "none" as const };
 }
 
 export async function lookupByVin(raw: string): Promise<VinLookup> {
