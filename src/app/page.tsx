@@ -13,7 +13,8 @@ import { CarShowcase } from "@/components/car-showcase";
 import { PartCard } from "@/components/part-card";
 import { SearchBar } from "@/components/search-bar";
 import { VinSearch } from "@/components/vin-search";
-import { searchParts } from "@/lib/parts-store";
+import { loadInventory } from "@/lib/parts-store";
+import { BRANDS } from "@/lib/types";
 import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -24,7 +25,10 @@ export default async function HomePage({
   searchParams: Promise<{ added?: string }>;
 }) {
   const { added } = await searchParams;
-  const popular = (await searchParts({ inStock: true })).slice(0, 8);
+  const inventory = await loadInventory();
+  const popular = BRANDS.map((brand) =>
+    inventory.parts.find((part) => part.brand === brand && part.stock > 0),
+  ).filter((part): part is NonNullable<typeof part> => Boolean(part));
 
   return (
     <div>
@@ -84,7 +88,8 @@ export default async function HomePage({
           <div>
             <h2 className="text-2xl font-bold text-[#16324f]">В наличии на складе</h2>
             <p className="mt-1 text-sm text-[#5a7a96]">
-              Популярные оригинальные позиции со склада в Москве
+              По одной оригинальной позиции каждой марки: BMW, Mercedes-Benz,
+              Audi, Škoda, Volkswagen, Porsche, Bentley
             </p>
           </div>
           <Link

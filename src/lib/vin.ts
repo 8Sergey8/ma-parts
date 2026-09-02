@@ -21,7 +21,8 @@ export type VinLookup =
       vin: string;
       vehicle: VinVehicle;
       parts: Part[];
-      match: "chassis" | "none";
+      confirmedCount: number;
+      match: "chassis" | "brand";
     }
   | {
       ok: false;
@@ -114,6 +115,19 @@ function chassisCodes(hay: string, year?: number) {
   }
 
   if (/2[-\s]?series|\bg42/i.test(hay)) codes.add("G42");
+  if (/5[-\s]?series|\bg30|\bg31/i.test(hay)) {
+    codes.add("G30");
+    codes.add("G31");
+    codes.add("5 Series");
+  }
+  if (/\bx5\b|\bg05/i.test(hay)) {
+    codes.add("G05");
+    codes.add("X5");
+  }
+  if (/\bx6\b|\bg06/i.test(hay)) {
+    codes.add("G06");
+    codes.add("X6");
+  }
 
   if (/g-class|gelandewagen|\bw463|\bw464|\bg 63|\bg63/i.test(hay)) {
     if (yearNum >= 2018 || !yearNum) codes.add("W464");
@@ -121,18 +135,34 @@ function chassisCodes(hay: string, year?: number) {
     if (/\bamg\b|\bg 63|\bg63/i.test(hay)) codes.add("G63");
   }
 
-  if (/e-class|\be 220|\be 300|\bw213/i.test(hay)) codes.add("W213");
-  if (/c-class|\bc 200|\bc 300|\bw205/i.test(hay)) codes.add("W205");
+  if (/e-class|\be 220|\be 300|\bw213/i.test(hay)) {
+    codes.add("W213");
+    codes.add("E-Class");
+  }
+  if (/c-class|\bc 200|\bc 300|\bw206/i.test(hay) && (yearNum >= 2021 || !yearNum)) {
+    codes.add("W206");
+    codes.add("C-Class");
+  } else if (/c-class|\bc 200|\bc 300|\bw205/i.test(hay)) {
+    codes.add("W205");
+    codes.add("C-Class");
+  }
+  if (/a-class|\bw177/i.test(hay)) {
+    codes.add("W177");
+    codes.add("A-Class");
+  }
 
   if (/\b911\b|\b992\b|targa/i.test(hay)) {
     codes.add("911 992");
     codes.add("992");
     if (/targa/i.test(hay)) codes.add("992 Targa");
   }
+  if (/macan/i.test(hay)) codes.add("Macan");
+  if (/panamera/i.test(hay)) codes.add("Panamera");
   if (/cayenne/i.test(hay)) {
     codes.add("Cayenne");
     codes.add("Cayenne Coupe");
   }
+  if (/fabia/i.test(hay)) codes.add("Fabia");
 
   if (/\ba4\b|\ba5\b|\bq5\b|\bb9\b/i.test(hay)) {
     codes.add("B9");
@@ -140,7 +170,16 @@ function chassisCodes(hay: string, year?: number) {
     codes.add("A5");
     codes.add("Q5");
   }
-  if (/\ba6\b|\ba7\b|\bc8\b/i.test(hay)) codes.add("C8");
+  if (/\ba6\b|\ba7\b|\bc8\b/i.test(hay)) {
+    codes.add("C8");
+    codes.add("A6");
+    codes.add("A7");
+  }
+  if (/\bq7\b|\bq8\b/i.test(hay)) {
+    codes.add("Q7");
+    codes.add("Q8");
+    codes.add("4M");
+  }
 
   if (/golf/i.test(hay)) codes.add(yearNum >= 2020 ? "Golf 8" : "Golf 7");
   if (/tiguan/i.test(hay)) codes.add("Tiguan");
@@ -295,9 +334,17 @@ function partFitsVehicle(part: Part, vehicle: VinVehicle) {
 }
 
 export function matchParts(parts: Part[], vehicle: VinVehicle) {
-  const confirmed = parts.filter((part) => partFitsVehicle(part, vehicle));
-  if (confirmed.length) return { parts: confirmed, mode: "chassis" as const };
-  return { parts: [], mode: "none" as const };
+  const branded = parts.filter((part) => part.brand === vehicle.brand);
+  const confirmed = branded.filter((part) => partFitsVehicle(part, vehicle));
+  const rest = branded.filter((part) => !confirmed.includes(part));
+  if (confirmed.length) {
+    return {
+      parts: [...confirmed, ...rest],
+      confirmedCount: confirmed.length,
+      mode: "chassis" as const,
+    };
+  }
+  return { parts: branded, confirmedCount: 0, mode: "brand" as const };
 }
 
 export async function lookupByVin(raw: string): Promise<VinLookup> {
@@ -323,6 +370,7 @@ export async function lookupByVin(raw: string): Promise<VinLookup> {
     vin,
     vehicle,
     parts: matched.parts,
+    confirmedCount: matched.confirmedCount,
     match: matched.mode,
   };
 }

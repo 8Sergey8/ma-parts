@@ -39,8 +39,9 @@ export default async function CatalogPage({
     <div className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="text-3xl font-bold text-[#0b3a6e]">Каталог запчастей</h1>
       <p className="mt-2 mb-6 max-w-3xl text-[#2c4a66]">
-        Оригинальные OEM-детали. Найдите позицию по артикулу производителя или
-        выберите марку. Нет на складе — оформим поставку из Европы.
+        Оригинальные OEM-детали для BMW, Mercedes-Benz, Audi, Škoda,
+        Volkswagen, Porsche и Bentley. Три автомобиля на главной — только
+        фото. Каталог не ограничен G20, G-Class или 911.
       </p>
       <CatalogFilters q={q} brand={brand} category={category} />
       <p className="mt-6 mb-4 text-sm text-[#5a7a96]">

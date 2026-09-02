@@ -4,17 +4,17 @@ const cars = [
   {
     src: "/images/cars/bmw-g81.jpg",
     title: "BMW M3 Touring G81",
-    caption: "Оригинал для S58 и M Compound",
+    caption: "Витрина. Каталог — все марки MBA-parts, не только эта модель.",
   },
   {
     src: "/images/cars/mercedes-g63.jpg",
     title: "Mercedes-Benz G63",
-    caption: "AMG M177 — только дилерские номера",
+    caption: "Витрина. Каталог — все марки MBA-parts, не только эта модель.",
   },
   {
     src: "/images/cars/porsche-911-targa.jpg",
     title: "Porsche 911 992 Targa",
-    caption: "Расходники и тормоза для 992",
+    caption: "Витрина. Каталог — все марки MBA-parts, не только эта модель.",
   },
 ];
 

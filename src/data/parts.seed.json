@@ -8,7 +8,13 @@
     "stock": 24,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["G20", "G21", "G80", "G81", "G42"],
+    "applicability": [
+      "G20",
+      "G21",
+      "G80",
+      "G81",
+      "G42"
+    ],
     "description": "Оригинальный масляный фильтр BMW для рядных 4- и 6-цилиндровых двигателей B48/B58. Поставляется в заводской упаковке дилера."
   },
   {
@@ -20,7 +26,12 @@
     "stock": 18,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["G20", "G80", "G81", "G22"],
+    "applicability": [
+      "G20",
+      "G80",
+      "G81",
+      "G22"
+    ],
     "description": "Оригинальный воздушный фильтр BMW. Сохраняет паспортный расход воздуха и защищает турбину B58."
   },
   {
@@ -32,7 +43,14 @@
     "stock": 31,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["G20", "G21", "G80", "G81", "G22", "G23"],
+    "applicability": [
+      "G20",
+      "G21",
+      "G80",
+      "G81",
+      "G22",
+      "G23"
+    ],
     "description": "Салонный фильтр с активированным углём. Рекомендуется замена каждые 15 000 км."
   },
   {
@@ -44,7 +62,11 @@
     "stock": 8,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["G80", "G81", "G82"],
+    "applicability": [
+      "G80",
+      "G81",
+      "G82"
+    ],
     "description": "Оригинальный комплект передних колодок M Performance для BMW M3/M4, включая Touring G81."
   },
   {
@@ -56,7 +78,11 @@
     "stock": 6,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["G80", "G81", "G82"],
+    "applicability": [
+      "G80",
+      "G81",
+      "G82"
+    ],
     "description": "Задние тормозные колодки BMW M. Сохраняют расчётный баланс тормозных сил оси."
   },
   {
@@ -68,7 +94,10 @@
     "stock": 4,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["G80", "G81"],
+    "applicability": [
+      "G80",
+      "G81"
+    ],
     "description": "Оригинальный передний тормозной диск BMW M Compound. Продаётся поштучно."
   },
   {
@@ -80,7 +109,11 @@
     "stock": 86,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["B48", "B58", "S58"],
+    "applicability": [
+      "B48",
+      "B58",
+      "S58"
+    ],
     "description": "Оригинальное синтетическое масло BMW Longlife-12 FE. Канистра 1 литр."
   },
   {
@@ -92,7 +125,11 @@
     "stock": 40,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["B58", "S58", "G81"],
+    "applicability": [
+      "B58",
+      "S58",
+      "G81"
+    ],
     "description": "Иридиевая свеча зажигания BMW. Меняется комплектом на все цилиндры."
   },
   {
@@ -104,7 +141,10 @@
     "stock": 0,
     "warehouse": "Под заказ, Европа",
     "oem": true,
-    "applicability": ["G80", "G81"],
+    "applicability": [
+      "G80",
+      "G81"
+    ],
     "description": "Оригинальный патрубок системы наддува. Срок поставки из Европы — 5–8 рабочих дней.",
     "deliveryDays": 7
   },
@@ -117,7 +157,11 @@
     "stock": 12,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["G20", "G80", "G81"],
+    "applicability": [
+      "G20",
+      "G80",
+      "G81"
+    ],
     "description": "Оригинальная круглая эмблема BMW на капот. Крепление на клипсах."
   },
   {
@@ -129,7 +173,12 @@
     "stock": 3,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["G20", "G21", "G80", "G81"],
+    "applicability": [
+      "G20",
+      "G21",
+      "G80",
+      "G81"
+    ],
     "description": "Нижний поперечный рычаг BMW с сайлентблоками. Оригинал Lemförder / BMW."
   },
   {
@@ -141,7 +190,12 @@
     "stock": 27,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["W463", "W464", "G63", "M177"],
+    "applicability": [
+      "W463",
+      "W464",
+      "G63",
+      "M177"
+    ],
     "description": "Оригинальный масляный фильтр Mercedes-Benz для двигателей M177/M178, включая G63 AMG."
   },
   {
@@ -153,7 +207,11 @@
     "stock": 11,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["W464", "G63", "GT63"],
+    "applicability": [
+      "W464",
+      "G63",
+      "GT63"
+    ],
     "description": "Воздушный фильтр Mercedes-AMG. Повышенная площадь фильтрующего элемента."
   },
   {
@@ -165,7 +223,10 @@
     "stock": 7,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["W464", "G63"],
+    "applicability": [
+      "W464",
+      "G63"
+    ],
     "description": "Передние колодки Mercedes-AMG для G-Class. Комплект на ось, с датчиками износа."
   },
   {
@@ -177,7 +238,10 @@
     "stock": 2,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["W464", "G63"],
+    "applicability": [
+      "W464",
+      "G63"
+    ],
     "description": "Вентилируемый перфорированный диск Mercedes-AMG G63. Продаётся поштучно."
   },
   {
@@ -189,7 +253,11 @@
     "stock": 54,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["M177", "M178", "M256"],
+    "applicability": [
+      "M177",
+      "M178",
+      "M256"
+    ],
     "description": "Оригинальное масло Mercedes-AMG 0W-40, допуск MB 229.5. Канистра 1 литр."
   },
   {
@@ -201,7 +269,10 @@
     "stock": 32,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["M177", "G63"],
+    "applicability": [
+      "M177",
+      "G63"
+    ],
     "description": "Свеча зажигания Mercedes-AMG. Для двигателя V8 битурбо G63 требуется 8 штук."
   },
   {
@@ -213,7 +284,10 @@
     "stock": 0,
     "warehouse": "Под заказ, Европа",
     "oem": true,
-    "applicability": ["W464", "G63"],
+    "applicability": [
+      "W464",
+      "G63"
+    ],
     "description": "Оригинальный передний амортизатор Mercedes-Benz G-Class. Поставка из Европы 7–12 дней.",
     "deliveryDays": 10
   },
@@ -226,7 +300,10 @@
     "stock": 1,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["W464", "G63"],
+    "applicability": [
+      "W464",
+      "G63"
+    ],
     "description": "Оригинальная вертикальная решётка Mercedes-AMG G63 с эмблемой звезды."
   },
   {
@@ -238,7 +315,11 @@
     "stock": 19,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["W205", "W213", "W464"],
+    "applicability": [
+      "W205",
+      "W213",
+      "W464"
+    ],
     "description": "Комбинированный салонный фильтр Mercedes-Benz с антиаллергенным слоем."
   },
   {
@@ -250,7 +331,12 @@
     "stock": 22,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["EA888", "B9", "C8", "8Y"],
+    "applicability": [
+      "EA888",
+      "B9",
+      "C8",
+      "8Y"
+    ],
     "description": "Оригинальный масляный фильтр VAG для двигателей EA888 gen.3/gen.4."
   },
   {
@@ -262,7 +348,12 @@
     "stock": 14,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["B9", "A4", "A5", "Q5"],
+    "applicability": [
+      "B9",
+      "A4",
+      "A5",
+      "Q5"
+    ],
     "description": "Воздушный фильтр Audi оригинальный. Подходит для A4/A5/Q5 поколения B9."
   },
   {
@@ -274,7 +365,11 @@
     "stock": 9,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["B9", "A4", "A5"],
+    "applicability": [
+      "B9",
+      "A4",
+      "A5"
+    ],
     "description": "Передние тормозные колодки Audi. Комплект на ось, с датчиком износа."
   },
   {
@@ -286,7 +381,11 @@
     "stock": 5,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["B9", "A4", "A5"],
+    "applicability": [
+      "B9",
+      "A4",
+      "A5"
+    ],
     "description": "Вентилируемый тормозной диск Audi. Продаётся поштучно, рекомендуется замена парой."
   },
   {
@@ -298,7 +397,11 @@
     "stock": 16,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["EA888", "B9", "C8"],
+    "applicability": [
+      "EA888",
+      "B9",
+      "C8"
+    ],
     "description": "Оригинальная катушка зажигания Audi/VW. Для 2.0 TFSI требуется 4 штуки."
   },
   {
@@ -310,7 +413,10 @@
     "stock": 40,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["EA888 gen.4", "VW 508 00"],
+    "applicability": [
+      "EA888 gen.4",
+      "VW 508 00"
+    ],
     "description": "Оригинальное масло VAG 0W-20 LongLife IV. Допуск VW 508 00 / 509 00."
   },
   {
@@ -322,7 +428,11 @@
     "stock": 4,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["Golf 8", "Tiguan", "Passat B8"],
+    "applicability": [
+      "Golf 8",
+      "Tiguan",
+      "Passat B8"
+    ],
     "description": "Оригинальная помпа системы охлаждения VAG с термостатом в сборе."
   },
   {
@@ -334,7 +444,12 @@
     "stock": 35,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["EA211", "Polo", "Rapid", "Octavia"],
+    "applicability": [
+      "EA211",
+      "Polo",
+      "Rapid",
+      "Octavia"
+    ],
     "description": "Масляный фильтр Volkswagen для атмосферных и турбо моторов EA211."
   },
   {
@@ -346,7 +461,11 @@
     "stock": 13,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["Golf 7", "Golf 8", "Tiguan"],
+    "applicability": [
+      "Golf 7",
+      "Golf 8",
+      "Tiguan"
+    ],
     "description": "Передние колодки Volkswagen. Комплект на ось."
   },
   {
@@ -358,7 +477,11 @@
     "stock": 8,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["Golf 7", "Golf 8", "Passat B8"],
+    "applicability": [
+      "Golf 7",
+      "Golf 8",
+      "Passat B8"
+    ],
     "description": "Оригинальный вентилируемый диск VW. Продаётся поштучно."
   },
   {
@@ -370,7 +493,11 @@
     "stock": 21,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["Golf 7", "Passat B8", "Octavia A7"],
+    "applicability": [
+      "Golf 7",
+      "Passat B8",
+      "Octavia A7"
+    ],
     "description": "Воздушный фильтр VAG. Подходит для семейства MQB."
   },
   {
@@ -382,7 +509,11 @@
     "stock": 17,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["Octavia A8", "Superb", "Kodiaq"],
+    "applicability": [
+      "Octavia A8",
+      "Superb",
+      "Kodiaq"
+    ],
     "description": "Оригинальный масляный фильтр Škoda для двигателей EA888 / EA211 evo."
   },
   {
@@ -394,7 +525,12 @@
     "stock": 25,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["Octavia A7", "Octavia A8", "Kodiaq", "Karoq"],
+    "applicability": [
+      "Octavia A7",
+      "Octavia A8",
+      "Kodiaq",
+      "Karoq"
+    ],
     "description": "Салонный фильтр Škoda с активированным углём. Оригинал VAG."
   },
   {
@@ -406,7 +542,11 @@
     "stock": 10,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["Octavia", "Golf", "Superb"],
+    "applicability": [
+      "Octavia",
+      "Golf",
+      "Superb"
+    ],
     "description": "Оригинальная стойка стабилизатора VAG. Меняется при стуке на неровностях."
   },
   {
@@ -418,7 +558,11 @@
     "stock": 0,
     "warehouse": "Под заказ, Европа",
     "oem": true,
-    "applicability": ["Octavia A7", "Superb", "Tiguan diesel"],
+    "applicability": [
+      "Octavia A7",
+      "Superb",
+      "Tiguan diesel"
+    ],
     "description": "Топливный фильтр для дизельных моторов TDI. Поставка из Европы 6–9 дней.",
     "deliveryDays": 8
   },
@@ -431,7 +575,11 @@
     "stock": 9,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["911 992", "718", "Taycan нет"],
+    "applicability": [
+      "911 992",
+      "718",
+      "Taycan нет"
+    ],
     "description": "Оригинальный масляный фильтр Porsche для оппозитных моторов 911 992 и 718."
   },
   {
@@ -443,7 +591,9 @@
     "stock": 4,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["911 992"],
+    "applicability": [
+      "911 992"
+    ],
     "description": "Воздушный фильтр Porsche 911 (992), включая Targa 4 и Targa 4S."
   },
   {
@@ -455,7 +605,10 @@
     "stock": 3,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["911 992", "992 Targa"],
+    "applicability": [
+      "911 992",
+      "992 Targa"
+    ],
     "description": "Оригинальные передние колодки Porsche для стальной тормозной системы 992."
   },
   {
@@ -467,7 +620,10 @@
     "stock": 2,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["911 992", "992 Targa"],
+    "applicability": [
+      "911 992",
+      "992 Targa"
+    ],
     "description": "Задние тормозные колодки Porsche 911 992. Комплект на ось."
   },
   {
@@ -479,7 +635,12 @@
     "stock": 28,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["911 992", "Cayenne", "Panamera", "Macan"],
+    "applicability": [
+      "911 992",
+      "Cayenne",
+      "Panamera",
+      "Macan"
+    ],
     "description": "Оригинальное масло Porsche Classic / Mobil 1 0W-40, допуск Porsche A40."
   },
   {
@@ -491,7 +652,10 @@
     "stock": 18,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["911 992", "992 Targa"],
+    "applicability": [
+      "911 992",
+      "992 Targa"
+    ],
     "description": "Свеча зажигания Porsche 911 992. Для оппозитной шестёрки требуется 6 штук."
   },
   {
@@ -503,7 +667,10 @@
     "stock": 0,
     "warehouse": "Под заказ, Европа",
     "oem": true,
-    "applicability": ["Cayenne", "Cayenne Coupe"],
+    "applicability": [
+      "Cayenne",
+      "Cayenne Coupe"
+    ],
     "description": "Передние колодки Porsche Cayenne. Поставка с европейского склада 8–14 дней.",
     "deliveryDays": 12
   },
@@ -516,7 +683,11 @@
     "stock": 5,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["Continental GT", "Flying Spur", "Bentayga"],
+    "applicability": [
+      "Continental GT",
+      "Flying Spur",
+      "Bentayga"
+    ],
     "description": "Оригинальный масляный фильтр Bentley / VAG для моторов W12 и V8."
   },
   {
@@ -528,7 +699,10 @@
     "stock": 2,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["Continental GT", "Flying Spur"],
+    "applicability": [
+      "Continental GT",
+      "Flying Spur"
+    ],
     "description": "Воздушный фильтр Bentley Continental. Оригинал, в заводской упаковке."
   },
   {
@@ -540,7 +714,10 @@
     "stock": 1,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["Continental GT", "Flying Spur"],
+    "applicability": [
+      "Continental GT",
+      "Flying Spur"
+    ],
     "description": "Передние колодки Bentley с керамической/составной системой. Комплект на ось."
   },
   {
@@ -552,7 +729,10 @@
     "stock": 0,
     "warehouse": "Под заказ, Европа",
     "oem": true,
-    "applicability": ["Bentayga V8", "Continental GT V8"],
+    "applicability": [
+      "Bentayga V8",
+      "Continental GT V8"
+    ],
     "description": "Масляный фильтр Bentley Bentayga V8. Поставка из Европы 10–14 дней.",
     "deliveryDays": 12
   },
@@ -565,7 +745,12 @@
     "stock": 64,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["VW", "Audi", "Škoda", "Porsche"],
+    "applicability": [
+      "VW",
+      "Audi",
+      "Škoda",
+      "Porsche"
+    ],
     "description": "Оригинальная сливная пробка VAG с новым уплотнительным кольцом."
   },
   {
@@ -577,7 +762,354 @@
     "stock": 48,
     "warehouse": "Москва, Кедрова 13к2",
     "oem": true,
-    "applicability": ["B48", "B58", "S58", "G81"],
+    "applicability": [
+      "B48",
+      "B58",
+      "S58",
+      "G81"
+    ],
     "description": "Оригинальная сливная пробка BMW с алюминиевым уплотнением. Меняется при каждом ТО."
+  },
+  {
+    "article": "11427638907",
+    "name": "Фильтр масляный",
+    "brand": "BMW",
+    "category": "Фильтры",
+    "price": 1980,
+    "stock": 16,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "G30",
+      "G31",
+      "G05",
+      "G06",
+      "G07"
+    ],
+    "description": "Оригинальный масляный фильтр BMW для 5 серии G30 и X5/X6/X7."
+  },
+  {
+    "article": "13718592621",
+    "name": "Фильтр воздушный",
+    "brand": "BMW",
+    "category": "Фильтры",
+    "price": 3120,
+    "stock": 11,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "G05",
+      "G06",
+      "X5",
+      "X6"
+    ],
+    "description": "Воздушный фильтр BMW X5/X6 G05/G06. Оригинал дилера."
+  },
+  {
+    "article": "34116864941",
+    "name": "Колодки тормозные передние",
+    "brand": "BMW",
+    "category": "Тормозная система",
+    "price": 11200,
+    "stock": 7,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "G30",
+      "G31",
+      "5 Series"
+    ],
+    "description": "Передние колодки BMW 5 серии G30/G31. Комплект на ось."
+  },
+  {
+    "article": "64119273124",
+    "name": "Фильтр салона",
+    "brand": "BMW",
+    "category": "Фильтры",
+    "price": 2890,
+    "stock": 20,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "G30",
+      "G05",
+      "G11",
+      "G12"
+    ],
+    "description": "Салонный фильтр BMW для 5/7 серии и X5."
+  },
+  {
+    "article": "A6511803109",
+    "name": "Фильтр масляный",
+    "brand": "Mercedes-Benz",
+    "category": "Фильтры",
+    "price": 1860,
+    "stock": 18,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "W206",
+      "W213",
+      "C-Class",
+      "E-Class"
+    ],
+    "description": "Оригинальный масляный фильтр Mercedes-Benz для C-Class W206 и E-Class W213."
+  },
+  {
+    "article": "A2134201500",
+    "name": "Колодки тормозные передние",
+    "brand": "Mercedes-Benz",
+    "category": "Тормозная система",
+    "price": 12400,
+    "stock": 6,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "W213",
+      "E-Class"
+    ],
+    "description": "Передние колодки Mercedes-Benz E-Class W213. Комплект на ось."
+  },
+  {
+    "article": "A2068300000",
+    "name": "Фильтр салона",
+    "brand": "Mercedes-Benz",
+    "category": "Фильтры",
+    "price": 2540,
+    "stock": 15,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "W206",
+      "C-Class"
+    ],
+    "description": "Салонный фильтр Mercedes-Benz C-Class W206."
+  },
+  {
+    "article": "A2474201500",
+    "name": "Колодки тормозные передние",
+    "brand": "Mercedes-Benz",
+    "category": "Тормозная система",
+    "price": 9800,
+    "stock": 8,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "W177",
+      "A-Class",
+      "GLA"
+    ],
+    "description": "Передние колодки Mercedes-Benz A-Class W177 / GLA."
+  },
+  {
+    "article": "4K0129620",
+    "name": "Фильтр воздушный",
+    "brand": "Audi",
+    "category": "Фильтры",
+    "price": 2760,
+    "stock": 9,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "C8",
+      "A6",
+      "A7"
+    ],
+    "description": "Воздушный фильтр Audi A6/A7 C8."
+  },
+  {
+    "article": "4M0698151K",
+    "name": "Колодки тормозные передние",
+    "brand": "Audi",
+    "category": "Тормозная система",
+    "price": 13400,
+    "stock": 5,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Q7",
+      "Q8",
+      "4M"
+    ],
+    "description": "Передние колодки Audi Q7/Q8. Комплект на ось."
+  },
+  {
+    "article": "4M0129620A",
+    "name": "Фильтр воздушный",
+    "brand": "Audi",
+    "category": "Фильтры",
+    "price": 3480,
+    "stock": 7,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Q7",
+      "Q8"
+    ],
+    "description": "Воздушный фильтр Audi Q7/Q8."
+  },
+  {
+    "article": "5NA129620B",
+    "name": "Фильтр воздушный",
+    "brand": "Volkswagen",
+    "category": "Фильтры",
+    "price": 1890,
+    "stock": 14,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Tiguan",
+      "Tiguan Allspace"
+    ],
+    "description": "Воздушный фильтр Volkswagen Tiguan."
+  },
+  {
+    "article": "2Q0698151",
+    "name": "Колодки тормозные передние",
+    "brand": "Volkswagen",
+    "category": "Тормозная система",
+    "price": 5420,
+    "stock": 12,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Polo",
+      "Rapid"
+    ],
+    "description": "Передние колодки Volkswagen Polo / Škoda Rapid."
+  },
+  {
+    "article": "3Q0819653B",
+    "name": "Фильтр салона",
+    "brand": "Volkswagen",
+    "category": "Фильтры",
+    "price": 1760,
+    "stock": 19,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Passat B8",
+      "Arteon",
+      "Superb"
+    ],
+    "description": "Салонный фильтр Volkswagen Passat B8 / Arteon."
+  },
+  {
+    "article": "5E0698151A",
+    "name": "Колодки тормозные передние",
+    "brand": "Škoda",
+    "category": "Тормозная система",
+    "price": 6240,
+    "stock": 11,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Octavia A7",
+      "Octavia A8"
+    ],
+    "description": "Передние колодки Škoda Octavia."
+  },
+  {
+    "article": "565129620",
+    "name": "Фильтр воздушный",
+    "brand": "Škoda",
+    "category": "Фильтры",
+    "price": 1540,
+    "stock": 13,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Kodiaq",
+      "Karoq",
+      "Superb"
+    ],
+    "description": "Воздушный фильтр Škoda Kodiaq / Karoq."
+  },
+  {
+    "article": "5L0129620",
+    "name": "Фильтр воздушный",
+    "brand": "Škoda",
+    "category": "Фильтры",
+    "price": 980,
+    "stock": 16,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Rapid",
+      "Fabia"
+    ],
+    "description": "Воздушный фильтр Škoda Rapid / Fabia."
+  },
+  {
+    "article": "95B12962000",
+    "name": "Фильтр воздушный",
+    "brand": "Porsche",
+    "category": "Фильтры",
+    "price": 5890,
+    "stock": 6,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Macan"
+    ],
+    "description": "Воздушный фильтр Porsche Macan. Оригинал."
+  },
+  {
+    "article": "95810720100",
+    "name": "Фильтр масляный",
+    "brand": "Porsche",
+    "category": "Фильтры",
+    "price": 3240,
+    "stock": 8,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Cayenne",
+      "Panamera",
+      "Macan"
+    ],
+    "description": "Масляный фильтр Porsche Cayenne / Panamera / Macan."
+  },
+  {
+    "article": "97035193900",
+    "name": "Колодки тормозные передние",
+    "brand": "Porsche",
+    "category": "Тормозная система",
+    "price": 28600,
+    "stock": 2,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Panamera"
+    ],
+    "description": "Передние колодки Porsche Panamera. Комплект на ось."
+  },
+  {
+    "article": "36A129620A",
+    "name": "Фильтр воздушный",
+    "brand": "Bentley",
+    "category": "Фильтры",
+    "price": 9120,
+    "stock": 3,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Bentayga"
+    ],
+    "description": "Воздушный фильтр Bentley Bentayga."
+  },
+  {
+    "article": "36A698151A",
+    "name": "Колодки тормозные передние",
+    "brand": "Bentley",
+    "category": "Тормозная система",
+    "price": 51200,
+    "stock": 1,
+    "warehouse": "Москва, Кедрова 13к2",
+    "oem": true,
+    "applicability": [
+      "Bentayga"
+    ],
+    "description": "Передние колодки Bentley Bentayga. Комплект на ось."
   }
 ]

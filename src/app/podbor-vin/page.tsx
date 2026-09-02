@@ -28,10 +28,10 @@ export default async function VinPage({
     <div className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="text-3xl font-bold text-[#0b3a6e]">Подбор запчастей по VIN</h1>
       <p className="mt-3 max-w-3xl text-[#2c4a66]">
-        Введите 17-значный VIN. Сначала определяем марку и кузов, затем
-        показываем только складские позиции, у которых совпал код модели.
-        Полного каталога ETK, как на cats.parts, здесь нет: остальные детали —
-        через заявку.
+        Введите 17-значный VIN. Определяем марку из списка MBA-parts (BMW,
+        Mercedes-Benz, Audi, Škoda, Volkswagen, Porsche, Bentley) и показываем
+        склад этой марки. Совпадение кузова помечается отдельно. Три фото на
+        главной — только витрина, не фильтр каталога.
       </p>
       <div className="mt-6 max-w-2xl">
         <VinSearch defaultValue={result?.vin || vin} />
@@ -88,17 +88,18 @@ export default async function VinPage({
             )}
             <p className="mt-3 text-sm text-[#2c4a66]">
               {result.match === "chassis"
-                ? "Ниже только те позиции склада, у которых в применимости есть код этого кузова или модели. Это не полный каталог производителя: редкие детали заказываются заявкой."
-                : "Марка определена, но на складе нет карточек с точным кодом кузова. Не показываем чужие модели — оставьте заявку, менеджер подберёт номера по VIN в каталоге производителя."}
+                ? `Сначала позиции, у которых совпал код кузова (${result.vehicle.codes.join(", ")}). Ниже — остальные оригинальные детали этой марки со склада.`
+                : "По VIN определена марка. Показан весь склад MBA-parts по этой марке: BMW, Mercedes-Benz, Audi, Škoda, Volkswagen, Porsche или Bentley — в зависимости от номера. Менеджер сверит точный артикул по VIN."}
             </p>
           </section>
 
           <section>
             <div className="mb-4 flex items-end justify-between gap-4">
               <h2 className="text-xl font-bold text-[#16324f]">
-                {result.match === "chassis"
-                  ? `Подтверждённые для этого авто: ${result.parts.length}`
-                  : "Подтверждённых позиций на складе нет"}
+                Склад {result.vehicle.brand}: {result.parts.length}
+                {result.confirmedCount
+                  ? ` · совпал кузов: ${result.confirmedCount}`
+                  : ""}
               </h2>
               <Link
                 href={`/katalog?brand=${encodeURIComponent(result.vehicle.brand ?? "")}`}
@@ -109,19 +110,19 @@ export default async function VinPage({
             </div>
             {result.parts.length === 0 ? (
               <p className="rounded-xl border border-[#d5e6f3] bg-white p-6 text-sm text-[#5a7a96]">
-                На складе нет запчастей с применимостью именно к этому кузову.
-                Оставьте заявку ниже — подберём оригинал по VIN и привезём из
-                Европы. В каталоге можно смотреть всю марку, но без гарантии
-                совместимости.
+                На складе пока нет карточек этой марки. Оставьте заявку ниже.
               </p>
             ) : (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {result.parts.map((part) => (
-                  <PartCard
-                    key={part.article}
-                    part={part}
-                    justAdded={added === part.article}
-                  />
+                {result.parts.map((part, index) => (
+                  <div key={part.article} className="relative">
+                    {index < result.confirmedCount && (
+                      <span className="absolute top-2 right-2 z-10 rounded-full bg-[#e8f3fb] px-2 py-0.5 text-[11px] font-medium text-[#0b3a6e]">
+                        Кузов совпал
+                      </span>
+                    )}
+                    <PartCard part={part} justAdded={added === part.article} />
+                  </div>
                 ))}
               </div>
             )}
@@ -153,7 +154,7 @@ export default async function VinPage({
             },
             {
               title: "2. Склад MBA-parts",
-              text: "Показываем только складские позиции с совпавшим кодом кузова. Остальное — заявка менеджеру.",
+              text: "Показываем склад этой марки. Если кузов распознан — такие карточки помечаются отдельно.",
             },
             {
               title: "3. Европа",
