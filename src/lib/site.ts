@@ -12,7 +12,7 @@ export const site = {
   email: "mbaparts888@gmail.com",
   address: "Москва, улица Кедрова, 13к2",
   messenger: "MAX",
-  hours: "Пн–Сб: 9:00–19:00, вс: выходной",
+  hours: "Пн–Пт: 10:00–20:00, сб–вс: выходной",
   url: "https://mba-parts.ru",
 } as const;
 

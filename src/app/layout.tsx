@@ -36,6 +36,7 @@ export default async function RootLayout({
     telephone: site.phone,
     email: site.email,
     foundingDate: String(site.foundedYear),
+    openingHours: "Mo-Fr 10:00-20:00",
     address: {
       "@type": "PostalAddress",
       streetAddress: "улица Кедрова, 13к2",
