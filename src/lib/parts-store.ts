@@ -125,7 +125,6 @@ async function persist(file: InventoryFile) {
 }
 
 export async function loadInventory(): Promise<InventoryFile> {
-  if (memory) return memory;
   try {
     const raw = await readFile(INVENTORY_PATH, "utf8");
     const parsed = JSON.parse(raw) as InventoryFile;
@@ -142,7 +141,7 @@ export async function loadInventory(): Promise<InventoryFile> {
       return memory;
     }
   } catch {
-    // no uploaded price list yet
+    if (memory) return memory;
   }
   memory = emptyInventory();
   return memory;
