@@ -34,8 +34,8 @@ export function SearchBar({
           name="q"
           type="search"
           defaultValue={defaultValue}
-          placeholder="Поиск запчасти по артикулу, например 11427586926"
-          aria-label="Поиск запчастей по артикулу"
+          placeholder="Поиск по артикулу из загруженного прайса"
+          aria-label="Поиск запчастей по артикулу из прайса"
           className={cn(
             "w-full border-0 bg-transparent pr-3 pl-9 text-[#152033] outline-none placeholder:text-[#5a7a96]",
             size === "lg" ? "h-12 text-base" : "h-10 text-sm",

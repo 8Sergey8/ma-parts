@@ -26,7 +26,7 @@ export function BrandCatalogSections({
                 <h2 className="text-xl font-bold text-[#16324f]">{group.brand}</h2>
                 <p className="text-sm text-[#5a7a96]">
                   {group.parts.length}{" "}
-                  {group.parts.length === 1 ? "позиция" : "позиций"} на складе
+                  {group.parts.length === 1 ? "позиция" : "позиций"} в прайсе
                 </p>
               </div>
             </div>

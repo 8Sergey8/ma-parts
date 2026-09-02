@@ -29,11 +29,9 @@ export default async function VinPage({
     <div className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="text-3xl font-bold text-[#0b3a6e]">Подбор запчастей по VIN</h1>
       <p className="mt-3 max-w-3xl text-[#2c4a66]">
-        Введите 17-значный VIN. Определяем марку из списка MBA-parts (BMW,
-        Mercedes-Benz, Audi, Škoda, Volkswagen, Porsche, Bentley) и показываем
-        склад этой марки — BMW, Mercedes-Benz, Audi, Škoda, Volkswagen,
-        Porsche или Bentley. Совпадение кузова помечается отдельно. Три фото
-        на главной — только витрина, не фильтр каталога.
+        Введите 17-значный VIN. Марка определяется по номеру, а карточки — только
+        из загруженного прайса с ценами и сроками поставки. Три фото на главной
+        — витрина, не источник артикулов.
       </p>
       <div className="mt-6 max-w-2xl">
         <VinSearch defaultValue={result?.vin || vin} />
@@ -90,8 +88,8 @@ export default async function VinPage({
             )}
             <p className="mt-3 text-sm text-[#2c4a66]">
               {result.match === "chassis"
-                ? `Сначала позиции, у которых совпал код кузова (${result.vehicle.codes.join(", ")}). Ниже — остальные оригинальные детали этой марки со склада.`
-                : "По VIN определена марка. Показан весь склад MBA-parts по этой марке: BMW, Mercedes-Benz, Audi, Škoda, Volkswagen, Porsche или Bentley — в зависимости от номера. Менеджер сверит точный артикул по VIN."}
+                ? `Сначала позиции из прайса, у которых совпал код кузова. Ниже — остальные позиции этой марки из загруженного файла.`
+                : "По VIN определена марка. Показаны только позиции этой марки из загруженного прайса. Менеджер сверит точный артикул по VIN."}
             </p>
           </section>
 
@@ -116,7 +114,7 @@ export default async function VinPage({
             </div>
             {result.parts.length === 0 ? (
               <p className="rounded-xl border border-[#d5e6f3] bg-white p-6 text-sm text-[#5a7a96]">
-                На складе пока нет карточек этой марки. Оставьте заявку ниже.
+                На складе в загруженном прайсе нет карточек этой марки. Оставьте заявку ниже.
               </p>
             ) : (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -160,7 +158,7 @@ export default async function VinPage({
             },
             {
               title: "2. Склад MBA-parts",
-              text: "Показываем склад этой марки. Если кузов распознан — такие карточки помечаются отдельно.",
+              text: "Показываем позиции этой марки из загруженного прайса. Срок: магазин, ЦС 1–3 дня, удалённый склад 5–7 дней, Европа 14–25 дней.",
             },
             {
               title: "3. Европа",

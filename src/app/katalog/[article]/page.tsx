@@ -4,9 +4,10 @@ import { notFound } from "next/navigation";
 import { AddToCart } from "./add-to-cart";
 import { Badge } from "@/components/ui/badge";
 import { BrandMark } from "@/components/brand-mark";
+import { AvailabilityBadges } from "@/components/availability";
 import { relatedParts } from "@/lib/catalog";
 import { getPart, searchParts } from "@/lib/parts-store";
-import { formatPrice, stockLabel } from "@/lib/format";
+import { formatPrice } from "@/lib/format";
 import { brandHref } from "@/lib/brands";
 
 export const dynamic = "force-dynamic";
@@ -38,7 +39,6 @@ export default async function PartPage({
     await searchParts({ brand: part.brand }),
     3,
   );
-  const stock = stockLabel(part.stock, part.deliveryDays);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -72,8 +72,10 @@ export default async function PartPage({
               <dd className="font-semibold">{part.category}</dd>
             </div>
             <div className="rounded-lg bg-[#f4f9fd] p-3">
-              <dt className="text-[#5a7a96]">Склад</dt>
-              <dd className="font-semibold">{part.warehouse}</dd>
+              <dt className="text-[#5a7a96]">Срок поставки</dt>
+              <dd className="font-semibold">
+                <AvailabilityBadges part={part} />
+              </dd>
             </div>
             <div className="rounded-lg bg-[#f4f9fd] p-3">
               <dt className="text-[#5a7a96]">Применяемость</dt>
@@ -85,15 +87,12 @@ export default async function PartPage({
           <div className="text-3xl font-bold text-[#0b3a6e]">
             {formatPrice(part.price)}
           </div>
-          <p
-            className={
-              stock.tone === "ok"
-                ? "mt-2 font-medium text-emerald-700"
-                : "mt-2 font-medium text-amber-700"
-            }
-          >
-            {stock.text}
-          </p>
+          <AvailabilityBadges part={part} />
+          {part.sourceFile ? (
+            <p className="mt-2 text-xs text-[#5a7a96]">
+              Цена и срок из файла {part.sourceFile}
+            </p>
+          ) : null}
           <AddToCart part={part} />
           <ul className="mt-6 space-y-2 text-sm text-[#2c4a66]">
             <li>Гарантия на оригинал</li>

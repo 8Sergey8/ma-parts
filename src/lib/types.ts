@@ -1,3 +1,5 @@
+import type { AvailabilityOffer } from "@/lib/availability";
+
 export const BRANDS = [
   "BMW",
   "Mercedes-Benz",
@@ -36,7 +38,8 @@ export type Part = {
   oem: boolean;
   applicability: string[];
   description: string;
-  deliveryDays?: number;
+  offers: AvailabilityOffer[];
+  sourceFile?: string;
 };
 
 export type Inquiry = {

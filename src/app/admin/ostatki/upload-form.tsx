@@ -35,7 +35,7 @@ export function InventoryUpload() {
       return;
     }
     setLog(
-      `Загружено ${data.imported} позиций. В каталоге сейчас ${data.count}. Режим: ${data.mode}.`,
+      `Загружено ${data.imported} позиций${data.skipped ? `, пропущено ${data.skipped}` : ""}. В каталоге сейчас ${data.count}. Режим: ${data.mode}.`,
     );
     router.refresh();
   }
@@ -45,7 +45,11 @@ export function InventoryUpload() {
       onSubmit={onUpload}
       className="mt-6 space-y-4 rounded-2xl border border-[#d5e6f3] bg-white p-6"
     >
-      <h2 className="font-semibold text-[#16324f]">Загрузка файла</h2>
+      <h2 className="font-semibold text-[#16324f]">Загрузка CSV или Excel</h2>
+      <p className="text-sm text-[#5a7a96]">
+        После загрузки старый каталог заменяется (или дополняется). Поиск на
+        сайте идёт только по этому файлу.
+      </p>
       <label className="block space-y-1.5 text-sm font-medium">
         API-ключ
         <input
@@ -92,14 +96,17 @@ export function InventoryUpload() {
       </button>
       {log && <p className="text-sm text-[#0b3a6e]">{log}</p>}
       <p className="text-xs text-[#5a7a96]">
-        Колонки: article / артикул, name / название, brand / марка, category,
-        price / цена, stock / остаток, warehouse, applicability, description.
+        Колонки: артикул, название, марка, цена, магазин, цс, удаленный_склад,
+        европа. Числа в колонках складов — остаток. Сроки фиксированы: магазин
+        — самовывоз; ЦС — 1–3 дня; удалённый склад — 5–7 дней; Европа — 14–25
+        дней. Можно одной колонкой «наличие»: Магазин / ЦС / Удалённый склад /
+        Европа.
       </p>
       <a
         href="/sample-ostatki.csv"
         className="inline-block text-sm text-[#1a6fb5] underline"
       >
-        Скачать пример CSV
+        Скачать пример прайса (CSV)
       </a>
     </form>
   );

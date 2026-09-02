@@ -3,12 +3,20 @@ import path from "node:path";
 import { BRANDS, type Part } from "@/lib/types";
 import { normalizeArticle } from "@/lib/format";
 import { resolveBrand } from "@/lib/resolve-brand";
-import seed from "@/data/parts.seed.json";
+import {
+  AVAILABILITY,
+  type AvailabilityOffer,
+  mergeOffers,
+  parseAvailabilityId,
+  parseDaysHint,
+  primaryOffer,
+} from "@/lib/availability";
+import { finalizePart, mergePartRows, rowsToParts } from "@/lib/price-file";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const INVENTORY_PATH = path.join(DATA_DIR, "inventory.json");
 
-type InventoryFile = {
+export type InventoryFile = {
   updatedAt: string;
   source: string;
   parts: Part[];
@@ -20,14 +28,57 @@ function isBrand(value: string): value is Part["brand"] {
   return (BRANDS as readonly string[]).includes(value);
 }
 
-function sanitizePart(raw: Record<string, unknown>): Part | null {
-  const article = normalizeArticle(String(raw.article ?? ""));
-  const name = String(raw.name ?? "").trim();
-  const brand = String(raw.brand ?? "").trim();
-  if (!article || !name || !isBrand(brand)) return null;
+function parsePrice(value: unknown): number | null {
+  if (typeof value === "number" && Number.isFinite(value) && value > 0) {
+    return Math.round(value);
+  }
+  const n = Number(String(value ?? "").replace(/\s/g, "").replace(",", "."));
+  return Number.isFinite(n) && n > 0 ? Math.round(n) : null;
+}
 
-  const price = Number(raw.price);
-  const stock = Number(raw.stock);
+function offersFromRaw(raw: Record<string, unknown>, price: number): AvailabilityOffer[] {
+  if (Array.isArray(raw.offers)) {
+    return mergeOffers(
+      raw.offers.map((item) => {
+        const row = (item ?? {}) as Record<string, unknown>;
+        const id =
+          parseAvailabilityId(row.id) ??
+          parseAvailabilityId(row.availability) ??
+          "shop";
+        return {
+          id,
+          stock: Math.max(0, Number(row.stock) || 0),
+          price: parsePrice(row.price) ?? price,
+        };
+      }),
+    );
+  }
+
+  const stock = Math.max(0, Number(raw.stock) || 0);
+  const id =
+    parseAvailabilityId(raw.availability) ??
+    parseAvailabilityId(raw.warehouse) ??
+    parseDaysHint(raw.deliveryDays) ??
+    parseDaysHint(raw.days);
+  if (!id && stock <= 0) return [];
+  const resolved = id ?? "shop";
+  return mergeOffers([
+    {
+      id: resolved,
+      stock: stock > 0 ? stock : 1,
+      price,
+    },
+  ]);
+}
+
+export function sanitizePart(raw: Record<string, unknown>): Part | null {
+  const article = normalizeArticle(String(raw.article ?? ""));
+  const name = String(raw.name ?? "").trim() || (article ? `OEM ${article}` : "");
+  const brandRaw = String(raw.brand ?? "").trim();
+  const brand = resolveBrand(brandRaw) ?? (isBrand(brandRaw) ? brandRaw : undefined);
+  const price = parsePrice(raw.price);
+  if (!article || !name || !brand || !price) return null;
+
   const applicability = Array.isArray(raw.applicability)
     ? raw.applicability.map(String)
     : String(raw.applicability ?? "")
@@ -35,34 +86,31 @@ function sanitizePart(raw: Record<string, unknown>): Part | null {
         .map((s) => s.trim())
         .filter(Boolean);
 
-  return {
+  const offers = offersFromRaw(raw, price);
+  if (!offers.length) return null;
+  const primary = primaryOffer(offers)!;
+
+  return finalizePart({
     article,
     name,
     brand,
     category: String(raw.category ?? "Прочее").trim() || "Прочее",
-    price: Number.isFinite(price) ? Math.max(0, Math.round(price)) : 0,
-    stock: Number.isFinite(stock) ? Math.max(0, Math.round(stock)) : 0,
-    warehouse: String(raw.warehouse ?? "Москва, Кедрова 13к2").trim(),
+    price: primary.price,
+    stock: offers.reduce((sum, offer) => sum + offer.stock, 0),
+    warehouse: AVAILABILITY[primary.id].warehouse,
     oem: raw.oem === false || raw.oem === "false" ? false : true,
     applicability,
     description: String(raw.description ?? "").trim(),
-    deliveryDays:
-      raw.deliveryDays === undefined || raw.deliveryDays === ""
-        ? stock > 0
-          ? 0
-          : 7
-        : Number(raw.deliveryDays) || 7,
-  };
+    offers,
+    sourceFile: String(raw.sourceFile ?? ""),
+  });
 }
 
-function seedInventory(): InventoryFile {
-  const parts = (seed as unknown as Record<string, unknown>[])
-    .map((p) => sanitizePart(p))
-    .filter((p): p is Part => Boolean(p));
+function emptyInventory(source = "empty"): InventoryFile {
   return {
     updatedAt: new Date().toISOString(),
-    source: "seed",
-    parts,
+    source,
+    parts: [],
   };
 }
 
@@ -72,7 +120,7 @@ async function persist(file: InventoryFile) {
     await mkdir(DATA_DIR, { recursive: true });
     await writeFile(INVENTORY_PATH, JSON.stringify(file, null, 2), "utf8");
   } catch {
-    // Read-only environments (e.g. serverless) keep the in-memory copy.
+    // Read-only environments keep the in-memory copy.
   }
 }
 
@@ -85,16 +133,18 @@ export async function loadInventory(): Promise<InventoryFile> {
       memory = {
         updatedAt: parsed.updatedAt,
         source: parsed.source ?? "file",
-        parts: parsed.parts
-          .map((p) => sanitizePart(p as unknown as Record<string, unknown>))
-          .filter((p): p is Part => Boolean(p)),
+        parts: mergePartRows(
+          parsed.parts
+            .map((p) => sanitizePart(p as unknown as Record<string, unknown>))
+            .filter((p): p is Part => Boolean(p)),
+        ),
       };
       return memory;
     }
   } catch {
-    // fall through to seed
+    // no uploaded price list yet
   }
-  memory = seedInventory();
+  memory = emptyInventory();
   return memory;
 }
 
@@ -102,18 +152,21 @@ export async function searchParts(params: {
   q?: string;
   brand?: string;
   category?: string;
+  availability?: string;
   inStock?: boolean;
 }) {
   const inventory = await loadInventory();
   const q = normalizeArticle(params.q ?? "");
-  const brand = params.brand?.trim();
+  const brandId = resolveBrand(params.brand?.trim());
   const category = params.category?.trim();
-
-  const brandId = resolveBrand(brand);
+  const availability = parseAvailabilityId(params.availability);
 
   return inventory.parts.filter((part) => {
     if (brandId && part.brand !== brandId) return false;
     if (category && part.category !== category) return false;
+    if (availability && !part.offers.some((offer) => offer.id === availability && offer.stock > 0)) {
+      return false;
+    }
     if (params.inStock && part.stock <= 0) return false;
     if (!q) return true;
     const hay = normalizeArticle(
@@ -133,7 +186,7 @@ export async function replaceInventory(parts: Part[], source: string) {
   const file: InventoryFile = {
     updatedAt: new Date().toISOString(),
     source,
-    parts,
+    parts: mergePartRows(parts.map((part) => finalizePart(part, source))),
   };
   await persist(file);
   return file;
@@ -141,9 +194,10 @@ export async function replaceInventory(parts: Part[], source: string) {
 
 export async function upsertParts(incoming: Part[], source = "api") {
   const inventory = await loadInventory();
-  const map = new Map(inventory.parts.map((p) => [p.article, p]));
-  for (const part of incoming) map.set(part.article, part);
-  return replaceInventory([...map.values()], source);
+  return replaceInventory(
+    mergePartRows([...inventory.parts, ...incoming]),
+    source,
+  );
 }
 
 export function parseIncomingParts(payload: unknown): Part[] {
@@ -153,10 +207,14 @@ export function parseIncomingParts(payload: unknown): Part[] {
       ? (payload as { parts: unknown }).parts
       : [payload];
   if (!Array.isArray(list)) return [];
-  return list
-    .map((row) => sanitizePart((row ?? {}) as Record<string, unknown>))
-    .filter((p): p is Part => Boolean(p));
+  return mergePartRows(
+    list
+      .map((row) => sanitizePart((row ?? {}) as Record<string, unknown>))
+      .filter((p): p is Part => Boolean(p)),
+  );
 }
+
+export { rowsToParts };
 
 export async function inventoryMeta() {
   const inventory = await loadInventory();
@@ -164,5 +222,6 @@ export async function inventoryMeta() {
     updatedAt: inventory.updatedAt,
     source: inventory.source,
     count: inventory.parts.length,
+    empty: inventory.parts.length === 0,
   };
 }

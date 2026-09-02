@@ -1,3 +1,11 @@
+import type { Part } from "@/lib/types";
+import {
+  AVAILABILITY,
+  type AvailabilityId,
+  availabilityToneClass,
+  primaryOffer,
+} from "@/lib/availability";
+
 export function formatPrice(value: number) {
   return new Intl.NumberFormat("ru-RU", {
     style: "currency",
@@ -18,9 +26,24 @@ export function normalizeArticle(value: string) {
   return value.replace(/[\s.-]/g, "").toUpperCase();
 }
 
-export function stockLabel(stock: number, deliveryDays?: number) {
-  if (stock > 10) return { text: "В наличии", tone: "ok" as const };
-  if (stock > 0) return { text: `${stock} шт. на складе`, tone: "ok" as const };
-  const days = deliveryDays ?? 7;
-  return { text: `Под заказ из Европы, ${days} дн.`, tone: "order" as const };
+export function offerLabel(id: AvailabilityId, stock?: number) {
+  const info = AVAILABILITY[id];
+  const qty = stock && stock > 0 ? ` · ${stock} шт.` : "";
+  return `${info.label} · ${info.daysLabel}${qty}`;
+}
+
+export function stockLabel(part: Part) {
+  const offer = primaryOffer(part.offers);
+  if (!offer) {
+    return {
+      text: "Нет в загруженном прайсе",
+      tone: "order" as const,
+      className: availabilityToneClass.order,
+    };
+  }
+  return {
+    text: offerLabel(offer.id, offer.stock),
+    tone: AVAILABILITY[offer.id].tone,
+    className: availabilityToneClass[offer.id],
+  };
 }

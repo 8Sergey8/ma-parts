@@ -2,7 +2,8 @@ import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import type { Part } from "@/lib/types";
 import { formatApplicability } from "@/lib/catalog";
-import { formatPrice, stockLabel } from "@/lib/format";
+import { formatPrice } from "@/lib/format";
+import { AvailabilityBadges } from "@/components/availability";
 import { BrandMark } from "@/components/brand-mark";
 
 export function PartCard({
@@ -12,8 +13,6 @@ export function PartCard({
   part: Part;
   justAdded?: boolean;
 }) {
-  const stock = stockLabel(part.stock, part.deliveryDays);
-
   return (
     <article className="flex h-full flex-col rounded-xl border border-[#d5e6f3] bg-white p-4 shadow-sm">
       <div className="mb-3 flex items-start justify-between gap-2">
@@ -32,23 +31,15 @@ export function PartCard({
         {part.brand} · {part.category}
       </p>
       <p className="mt-2 font-mono text-sm text-[#0b3a6e]">{part.article}</p>
-      <p className="mt-1 text-xs text-[#5a7a96]">
-        {formatApplicability(part.applicability)}
-      </p>
+      {part.applicability.length > 0 ? (
+        <p className="mt-1 text-xs text-[#5a7a96]">
+          {formatApplicability(part.applicability)}
+        </p>
+      ) : null}
+      <AvailabilityBadges part={part} compact />
       <div className="mt-auto pt-4">
-        <div className="mb-3 flex items-end justify-between">
-          <div className="text-xl font-bold text-[#0b3a6e]">
-            {formatPrice(part.price)}
-          </div>
-          <span
-            className={
-              stock.tone === "ok"
-                ? "text-xs font-medium text-emerald-700"
-                : "text-xs font-medium text-amber-700"
-            }
-          >
-            {stock.text}
-          </span>
+        <div className="mb-3 text-xl font-bold text-[#0b3a6e]">
+          {formatPrice(part.price)}
         </div>
         <div className="flex gap-2">
           <form action="/api/cart" method="post" className="flex-1">

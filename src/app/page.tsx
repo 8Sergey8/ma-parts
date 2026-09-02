@@ -8,9 +8,11 @@ import {
   Truck,
   Wallet,
 } from "lucide-react";
+import { AvailabilityLegend } from "@/components/availability";
 import { BrandCatalogSections } from "@/components/brand-catalog";
 import { BrandLogos } from "@/components/brand-logos";
 import { CarShowcase } from "@/components/car-showcase";
+import { EmptyPriceList } from "@/components/empty-price-list";
 import { SearchBar } from "@/components/search-bar";
 import { VinSearch } from "@/components/vin-search";
 import { featuredByBrand } from "@/lib/catalog";
@@ -54,7 +56,8 @@ export default async function HomePage({
           <div className="mt-8 max-w-2xl">
             <SearchBar size="lg" />
             <p className="mt-2 text-sm text-[#5a7a96]">
-              Ищите по OEM-артикулу. Нет в наличии — привезём из Европы.
+              Ищите только по позициям из загруженного прайса: артикул, цена и
+              срок поставки.
             </p>
           </div>
           <div className="mt-6 max-w-2xl">
@@ -91,9 +94,8 @@ export default async function HomePage({
               Склад по маркам
             </h2>
             <p className="mt-1 max-w-2xl text-sm text-[#5a7a96]">
-              Карточки запчастей для BMW, Mercedes-Benz, Audi, Škoda,
-              Volkswagen, Porsche и Bentley. Фото G81, G63 и 911 — витрина,
-              не ограничение ассортимента.
+              Карточки появляются только из загруженного прайса. Артикул, цена
+              и срок поставки — из файла, не из демо-каталога.
             </p>
           </div>
           <Link
@@ -103,11 +105,18 @@ export default async function HomePage({
             Весь каталог
           </Link>
         </div>
-        <BrandCatalogSections
-          groups={byBrand}
-          added={added}
-          remaining={remaining}
-        />
+        <div className="mb-8">
+          <AvailabilityLegend />
+        </div>
+        {byBrand.length === 0 ? (
+          <EmptyPriceList />
+        ) : (
+          <BrandCatalogSections
+            groups={byBrand}
+            added={added}
+            remaining={remaining}
+          />
+        )}
       </section>
 
       <div className="mx-auto max-w-6xl px-4 pb-12">

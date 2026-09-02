@@ -45,4 +45,5 @@ next-env.d.ts
 # runtime data
 /data/inventory.json
 /data/inquiries.json
+/data/pricelists/
 /agent-tools

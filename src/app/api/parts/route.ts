@@ -12,8 +12,9 @@ export async function GET(request: Request) {
   const q = searchParams.get("q") ?? undefined;
   const brand = searchParams.get("brand") ?? undefined;
   const category = searchParams.get("category") ?? undefined;
+  const availability = searchParams.get("availability") ?? undefined;
   const inStock = searchParams.get("inStock") === "1";
-  const parts = await searchParts({ q, brand, category, inStock });
+  const parts = await searchParts({ q, brand, category, availability, inStock });
   const meta = await inventoryMeta();
   return NextResponse.json({ ...meta, parts });
 }
@@ -26,7 +27,7 @@ export async function POST(request: Request) {
   const incoming = parseIncomingParts(body);
   if (incoming.length === 0) {
     return NextResponse.json(
-      { error: "Не удалось разобрать позиции. Нужны article, name, brand, price, stock." },
+      { error: "Не удалось разобрать позиции. Нужны артикул, марка, цена и наличие (магазин / ЦС / удалённый склад / Европа)." },
       { status: 400 },
     );
   }

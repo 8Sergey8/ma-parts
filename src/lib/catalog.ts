@@ -1,4 +1,5 @@
 import { BRANDS, type Part } from "@/lib/types";
+import { offerRank, primaryOffer } from "@/lib/availability";
 
 /** Кузова с фото на главной — только витрина, не фильтр склада. */
 const SHOWCASE_CODES = new Set(
@@ -37,6 +38,9 @@ function showcaseShare(part: Part) {
 
 export function sortCatalogParts(parts: Part[]) {
   return [...parts].sort((a, b) => {
+    const aRank = offerRank(primaryOffer(a.offers ?? [])?.id ?? "europe");
+    const bRank = offerRank(primaryOffer(b.offers ?? [])?.id ?? "europe");
+    if (aRank !== bRank) return aRank - bRank;
     const brandDiff = BRANDS.indexOf(a.brand) - BRANDS.indexOf(b.brand);
     if (brandDiff !== 0) return brandDiff;
     return showcaseShare(a) - showcaseShare(b);
@@ -46,11 +50,9 @@ export function sortCatalogParts(parts: Part[]) {
 export function featuredByBrand(parts: Part[], perBrand = 3) {
   return groupPartsByBrand(parts).map((group) => {
     const ranked = [...group.parts].sort((a, b) => {
-      const stockA = a.stock > 0 ? 1 : 0;
-      const stockB = b.stock > 0 ? 1 : 0;
-      if (stockB !== stockA) return stockB - stockA;
-      const share = showcaseShare(a) - showcaseShare(b);
-      if (share !== 0) return share;
+      const aRank = offerRank(primaryOffer(a.offers ?? [])?.id ?? "europe");
+      const bRank = offerRank(primaryOffer(b.offers ?? [])?.id ?? "europe");
+      if (aRank !== bRank) return aRank - bRank;
       return b.stock - a.stock;
     });
     return { brand: group.brand, parts: ranked.slice(0, perBrand) };
