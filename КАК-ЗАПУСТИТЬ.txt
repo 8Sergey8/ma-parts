@@ -1,43 +1,40 @@
-MBA-parts — запуск на Mac
-=========================
+MBA-parts — запуск через Terminal на Mac
+========================================
 
-Это сайт, не приложение из App Store. Открывается через Terminal.
+Не скачивайте ZIP. Сайт обновляется и запускается командами ниже.
 
-1) Откройте Terminal: Spotlight (Cmd + Пробел) → Terminal → Enter
+1) Terminal: Spotlight (Cmd + Пробел) → Terminal → Enter
 
-2) Перейдите в папку проекта. Узнать путь: в Finder откройте ma-parts,
-   правый клик по папке → Option + «Скопировать как путь», затем:
+2) Если ещё нет Node.js, один раз:
 
-   cd "/Users/сергей/ma-parts"
-
-   Подставьте свой путь. Если папка в Загрузках:
-
-   cd ~/Downloads/ma-parts
-
-3) Проверка:
-
-   node -v
-   npm -v
-
-   Нужно v20 или выше. Если command not found:
-   - установите Node.js LTS: https://nodejs.org (кнопка macOS)
-   - закройте Terminal полностью (Cmd+Q) и откройте снова
-   - снова выполните node -v
-
-   Либо через Homebrew:
    brew install node
 
-4) Запуск (первый раз 1–2 минуты):
+   Или установщик: https://nodejs.org (кнопка macOS).
+   Нужна версия 20+. Проверка: node -v
 
-   npm install
-   npx --yes next dev --hostname 127.0.0.1 --port 43123
+3) ПЕРВЫЙ ЗАПУСК — скопируйте весь блок в Terminal и нажмите Enter:
 
-5) Когда появится:
-   Local: http://127.0.0.1:43123
-   откройте этот адрес в Safari или Chrome.
-   Окно Terminal НЕ закрывайте.
+cd ~
+xcode-select --install 2>/dev/null || true
+git clone https://github.com/8Sergey8/ma-parts.git ma-parts
+cd ma-parts
+chmod +x start.sh update.sh
+./start.sh
 
-Или одной командой из папки проекта:
+Дождитесь строки Local: http://127.0.0.1:43123
+Safari сам откроется, либо вставьте адрес вручную.
+Окно Terminal не закрывайте.
 
-   chmod +x start.sh
-   ./start.sh
+4) КАЖДЫЙ СЛЕДУЮЩИЙ РАЗ — подтянуть сайт с GitHub и запустить:
+
+cd ~/ma-parts
+./update.sh
+
+Только запустить, без обновления:
+
+cd ~/ma-parts
+./start.sh
+
+5) Прайс (цены и сроки) загружается на сайте:
+   http://127.0.0.1:43123/admin/ostatki
+   ключ: mba-parts-local

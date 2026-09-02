@@ -6,22 +6,32 @@
 
 ## Запуск на своём компьютере
 
-Нужен [Node.js 20+](https://nodejs.org). Откройте папку `ma-parts` в Terminal.
+## Запуск на Mac (Terminal)
 
-**macOS:** файл `КАК-ЗАПУСТИТЬ.txt` или:
+Не используйте Download ZIP. В Terminal:
+
+**Первый раз**
 
 ```bash
-cd ~/Downloads/ma-parts
-node -v
-npm install
-npx --yes next dev --hostname 127.0.0.1 --port 43123
+cd ~
+git clone https://github.com/8Sergey8/ma-parts.git ma-parts
+cd ma-parts
+chmod +x start.sh update.sh
+./start.sh
 ```
 
-Оставьте Terminal открытым и откройте [http://127.0.0.1:43123](http://127.0.0.1:43123).
+**Обновить с GitHub и запустить**
 
-Либо: `chmod +x start.sh && ./start.sh`
+```bash
+cd ~/ma-parts
+./update.sh
+```
 
-**Windows:** `start.bat` или те же `npm install` / `npx` в `cmd`.
+Сайт: [http://127.0.0.1:43123](http://127.0.0.1:43123). Окно Terminal не закрывайте.
+
+Нужен [Node.js 20+](https://nodejs.org). Подробности: `КАК-ЗАПУСТИТЬ.txt`.
+
+**Windows:** `start.bat`.
 
 Сборка production:
 

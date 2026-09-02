@@ -35,6 +35,6 @@ fi
 
 echo
 echo "[2/2] Starting http://127.0.0.1:43123"
-echo "Leave this Terminal window open."
+echo "Окно Terminal не закрывайте."
 echo
 exec node scripts/start-local.cjs
