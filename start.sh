@@ -3,13 +3,21 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 echo "MBA-parts"
-echo "Folder: $PWD"
+echo "Папка: $PWD"
 echo
 
+if [ ! -f package.json ]; then
+  echo "Здесь нет сайта. Нужна папка ZIP, например:"
+  echo "  cd ~/Downloads/ma-parts-main-3"
+  echo "  ./start.sh"
+  exit 1
+fi
+
 if ! command -v node >/dev/null 2>&1; then
-  echo "Node.js not found."
-  echo "Install LTS from https://nodejs.org (macOS installer) or:"
+  echo "Node.js не найден."
+  echo "Установите LTS: https://nodejs.org (кнопка macOS) или:"
   echo "  brew install node"
+  echo "Потом закройте Terminal (Cmd+Q), откройте снова и повторите ./start.sh"
   exit 1
 fi
 

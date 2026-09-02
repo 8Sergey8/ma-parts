@@ -1,40 +1,33 @@
-MBA-parts — запуск через Terminal на Mac
+MBA-parts — запуск из ZIP через Terminal
 ========================================
 
-Не скачивайте ZIP. Сайт обновляется и запускается командами ниже.
+Папка с сайта GitHub после третьего скачивания обычно такая:
 
-1) Terminal: Spotlight (Cmd + Пробел) → Terminal → Enter
+  ~/Downloads/ma-parts-main-3
 
-2) Если ещё нет Node.js, один раз:
+1) Spotlight (Cmd + Пробел) → Terminal → Enter
 
-   brew install node
+2) Один раз должен быть Node.js 20+: https://nodejs.org
+   Проверка: node -v
 
-   Или установщик: https://nodejs.org (кнопка macOS).
-   Нужна версия 20+. Проверка: node -v
+3) Скопируйте весь блок в Terminal и нажмите Enter:
 
-3) ПЕРВЫЙ ЗАПУСК — скопируйте весь блок в Terminal и нажмите Enter:
-
-cd ~
-xcode-select --install 2>/dev/null || true
-git clone https://github.com/8Sergey8/ma-parts.git ma-parts
-cd ma-parts
-chmod +x start.sh update.sh
+cd ~/Downloads/ma-parts-main-3
+chmod +x start.sh
 ./start.sh
 
-Дождитесь строки Local: http://127.0.0.1:43123
-Safari сам откроется, либо вставьте адрес вручную.
+Если Terminal напишет «No such file or directory», папка называется иначе.
+Тогда сначала:
+
+cd ~/Downloads
+ls -d ma-parts*
+
+и подставьте точное имя, например ma-parts-main или ma-parts-main-2.
+
+4) Дождитесь строки:
+   Local: http://127.0.0.1:43123
+Safari откроется сам или вставьте адрес вручную.
 Окно Terminal не закрывайте.
 
-4) КАЖДЫЙ СЛЕДУЮЩИЙ РАЗ — подтянуть сайт с GitHub и запустить:
-
-cd ~/ma-parts
-./update.sh
-
-Только запустить, без обновления:
-
-cd ~/ma-parts
-./start.sh
-
-5) Прайс (цены и сроки) загружается на сайте:
-   http://127.0.0.1:43123/admin/ostatki
+5) Прайс: http://127.0.0.1:43123/admin/ostatki
    ключ: mba-parts-local

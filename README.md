@@ -6,25 +6,14 @@
 
 ## Запуск на своём компьютере
 
-## Запуск на Mac (Terminal)
+## Запуск на Mac из ZIP (Terminal)
 
-Не используйте Download ZIP. В Terminal:
-
-**Первый раз**
+Если скачали архив с GitHub и распаковали его как `ma-parts-main-3`:
 
 ```bash
-cd ~
-git clone https://github.com/8Sergey8/ma-parts.git ma-parts
-cd ma-parts
-chmod +x start.sh update.sh
+cd ~/Downloads/ma-parts-main-3
+chmod +x start.sh
 ./start.sh
-```
-
-**Обновить с GitHub и запустить**
-
-```bash
-cd ~/ma-parts
-./update.sh
 ```
 
 Сайт: [http://127.0.0.1:43123](http://127.0.0.1:43123). Окно Terminal не закрывайте.

@@ -12,16 +12,12 @@ if ! command -v git >/dev/null 2>&1; then
 fi
 
 if [ ! -d .git ]; then
-  echo "Эта папка скачана ZIP-архивом, без Git."
-  echo "Один раз вставьте в Terminal:"
+  echo "Эта папка из ZIP. Запуск без Git:"
   echo
-  echo "  cd ~"
-  echo "  git clone $REPO ma-parts"
-  echo "  cd ma-parts"
-  echo "  chmod +x start.sh update.sh"
-  echo "  ./update.sh"
+  echo "  cd \"$PWD\""
+  echo "  ./start.sh"
   echo
-  exit 1
+  exec ./start.sh
 fi
 
 echo "MBA-parts — обновление с GitHub"
