@@ -4,9 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0 --port 43123",
+    "local": "node scripts/start-local.cjs",
     "build": "next build",
     "start": "next start --hostname 0.0.0.0 --port 43123",
     "lint": "eslint"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

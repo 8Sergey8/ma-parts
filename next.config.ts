@@ -17,6 +17,19 @@ const nextConfig: NextConfig = {
     "*.cursor.sh",
     "**.cursor.sh",
   ],
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors *",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
