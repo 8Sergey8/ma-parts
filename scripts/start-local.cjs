@@ -11,13 +11,16 @@ const PORT = process.env.PORT || "43123";
 const HOST = "127.0.0.1";
 const url = `http://${HOST}:${PORT}`;
 const isWin = process.platform === "win32";
+const npmCmd = isWin ? "npm.cmd" : "npm";
+const npxCmd = isWin ? "npx.cmd" : "npx";
 
 function run(command, args) {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       cwd: root,
       stdio: "inherit",
-      shell: isWin,
+      shell: false,
+      windowsHide: false,
     });
     child.on("error", reject);
     child.on("exit", (code) => {
@@ -57,23 +60,24 @@ function openBrowser() {
 async function main() {
   const major = Number(process.versions.node.split(".")[0]);
   if (major < 20) {
-    console.error("Нужен Node.js 20 или новее: https://nodejs.org");
+    console.error("Need Node.js 20+: https://nodejs.org");
     process.exit(1);
   }
 
   if (!existsSync(path.join(root, "node_modules", "next"))) {
-    console.log("Устанавливаю зависимости npm…");
-    await run("npm", ["install"]);
+    console.log("npm install...");
+    await run(npmCmd, ["install"]);
   }
 
-  console.log(`Запускаю MBA-parts: ${url}`);
+  console.log(`MBA-parts: ${url}`);
   const child = spawn(
-    "npx",
-    ["next", "dev", "--hostname", HOST, "--port", PORT],
+    npxCmd,
+    ["--yes", "next", "dev", "--hostname", HOST, "--port", PORT],
     {
       cwd: root,
       stdio: "inherit",
-      shell: isWin,
+      shell: false,
+      windowsHide: false,
     },
   );
 
