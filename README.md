@@ -6,23 +6,22 @@
 
 ## Запуск на своём компьютере
 
-Нужен [Node.js 20+](https://nodejs.org). Скачайте папку проекта, затем:
+Нужен [Node.js 20+](https://nodejs.org). Откройте папку `ma-parts` в Terminal.
 
-**Windows:** откройте `КАК-ЗАПУСТИТЬ.txt` или дважды щёлкните `start.bat`. Чёрное окно не закрывайте. Если `start.bat` сразу закрывается, в `cmd` выполните `npm install`, затем `npx --yes next dev --hostname 127.0.0.1 --port 43123` и откройте [http://127.0.0.1:43123](http://127.0.0.1:43123).
-
-**macOS / Linux:**
+**macOS:** файл `КАК-ЗАПУСТИТЬ.txt` или:
 
 ```bash
-chmod +x start.sh
-./start.sh
-```
-
-Или вручную:
-
-```bash
+cd ~/Downloads/ma-parts
+node -v
 npm install
-npm run local
+npx --yes next dev --hostname 127.0.0.1 --port 43123
 ```
+
+Оставьте Terminal открытым и откройте [http://127.0.0.1:43123](http://127.0.0.1:43123).
+
+Либо: `chmod +x start.sh && ./start.sh`
+
+**Windows:** `start.bat` или те же `npm install` / `npx` в `cmd`.
 
 Сборка production:
 
