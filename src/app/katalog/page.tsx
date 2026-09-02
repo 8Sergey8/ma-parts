@@ -15,12 +15,18 @@ export const metadata: Metadata = {
 export default async function CatalogPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; brand?: string; category?: string }>;
+  searchParams: Promise<{
+    q?: string;
+    brand?: string;
+    category?: string;
+    added?: string;
+  }>;
 }) {
   const params = await searchParams;
   const q = params.q?.trim() ?? "";
   const brand = params.brand?.trim() ?? "";
   const category = params.category?.trim() ?? "";
+  const added = params.added?.trim() ?? "";
   const brandName = brands.find((b) => b.slug === brand || b.id === brand)?.id ?? brand;
 
   const parts = await searchParts({
@@ -52,7 +58,11 @@ export default async function CatalogPage({
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {parts.map((part) => (
-            <PartCard key={part.article} part={part} />
+            <PartCard
+              key={part.article}
+              part={part}
+              justAdded={added === part.article}
+            />
           ))}
         </div>
       )}

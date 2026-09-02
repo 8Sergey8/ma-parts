@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CartProvider } from "@/components/cart-provider";
+import { headers } from "next/headers";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { site } from "@/lib/site";
@@ -22,7 +22,12 @@ export const metadata: Metadata = {
   icons: { icon: "/images/logo.png" },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const pathname = (await headers()).get("x-pathname") ?? "/";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoPartsStore",
@@ -42,20 +47,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="ru" className="h-full">
-      <head>
-        <meta name="description" content={site.description} />
-        <meta name="keywords" content={site.keywords} />
-      </head>
       <body className="flex min-h-full flex-col antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <CartProvider>
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-        </CartProvider>
+        <SiteHeader pathname={pathname} />
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );

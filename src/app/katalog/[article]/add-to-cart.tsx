@@ -1,39 +1,31 @@
-"use client";
-
-import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import type { Part } from "@/lib/types";
-import { useCart } from "@/components/cart-provider";
 
 export function AddToCart({ part }: { part: Part }) {
-  const { add } = useCart();
-  const [qty, setQty] = useState(1);
-  const [added, setAdded] = useState(false);
-
   return (
-    <div className="mt-5 space-y-3">
+    <form action="/api/cart" method="post" className="mt-5 space-y-3">
       <div className="flex items-center gap-2">
-        <span className="text-sm text-[#5a7a96]">Количество</span>
+        <label htmlFor="qty" className="text-sm text-[#5a7a96]">
+          Количество
+        </label>
         <input
+          id="qty"
+          name="qty"
           type="number"
           min={1}
-          value={qty}
-          onChange={(e) => setQty(Math.max(1, Number(e.target.value) || 1))}
+          defaultValue={1}
           className="h-10 w-20 rounded-lg border border-input bg-white px-2 text-center"
         />
       </div>
+      <input type="hidden" name="action" value="add" />
+      <input type="hidden" name="article" value={part.article} />
       <button
-        type="button"
+        type="submit"
         className="inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-lg bg-[#1a6fb5] text-sm font-medium text-white hover:bg-[#155d98]"
-        onClick={() => {
-          add(part, qty);
-          setAdded(true);
-          window.setTimeout(() => setAdded(false), 1400);
-        }}
       >
         <ShoppingCart className="size-4" />
-        {added ? "Добавлено в корзину" : "Добавить в корзину"}
+        Добавить в корзину
       </button>
-    </div>
+    </form>
   );
 }

@@ -1,5 +1,3 @@
-"use client";
-
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -25,11 +23,10 @@ export function SearchBar({
       )}
     >
       {hiddenFields &&
-        Object.entries(hiddenFields).map(
-          ([name, value]) =>
-            value ? (
-              <input key={name} type="hidden" name={name} value={value} />
-            ) : null,
+        Object.entries(hiddenFields).map(([name, value]) =>
+          value ? (
+            <input key={name} type="hidden" name={name} value={value} />
+          ) : null,
         )}
       <div className="relative flex-1">
         <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-[#5a7a96]" />

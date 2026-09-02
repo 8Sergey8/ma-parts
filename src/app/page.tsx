@@ -17,7 +17,12 @@ import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
-export default async function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ added?: string }>;
+}) {
+  const { added } = await searchParams;
   const popular = (await searchParts({ inStock: true })).slice(0, 8);
 
   return (
@@ -84,7 +89,11 @@ export default async function HomePage() {
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {popular.map((part) => (
-            <PartCard key={part.article} part={part} />
+            <PartCard
+              key={part.article}
+              part={part}
+              justAdded={added === part.article}
+            />
           ))}
         </div>
       </section>

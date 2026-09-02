@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { brands } from "@/lib/brands";
 import { CATEGORIES } from "@/lib/types";

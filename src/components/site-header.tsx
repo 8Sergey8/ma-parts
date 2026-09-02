@@ -1,18 +1,13 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Phone, ShoppingCart } from "lucide-react";
 import { site, nav } from "@/lib/site";
-import { useCart } from "@/components/cart-provider";
 import { SearchBar } from "@/components/search-bar";
-import { MobileNav } from "@/components/mobile-nav";
+import { cartCount, readCart } from "@/lib/cart";
 import { cn } from "@/lib/utils";
 
-export function SiteHeader() {
-  const pathname = usePathname();
-  const { count } = useCart();
+export async function SiteHeader({ pathname = "/" }: { pathname?: string }) {
+  const count = cartCount(await readCart());
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#d5e6f3] bg-white/95 backdrop-blur">
@@ -69,7 +64,36 @@ export function SiteHeader() {
               </span>
             )}
           </Link>
-          <MobileNav />
+          <details className="mobile-nav relative lg:hidden">
+            <summary
+              className="grid size-10 list-none place-items-center rounded-lg border border-[#c5d9eb] bg-white text-[#0b3a6e] marker:content-none [&::-webkit-details-marker]:hidden"
+              aria-label="Открыть меню"
+            >
+              <span className="flex flex-col gap-1.5">
+                <span className="block h-0.5 w-4 bg-current" />
+                <span className="block h-0.5 w-4 bg-current" />
+                <span className="block h-0.5 w-4 bg-current" />
+              </span>
+            </summary>
+            <div className="absolute top-12 right-0 z-50 w-64 rounded-xl border border-[#d5e6f3] bg-white p-3 shadow-lg">
+              <nav className="flex flex-col gap-1">
+                {nav.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "rounded-lg px-3 py-2 text-sm",
+                      pathname === item.href
+                        ? "bg-[#e8f3fb] font-semibold text-[#0b3a6e]"
+                        : "text-[#2c4a66]",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          </details>
         </div>
       </div>
 

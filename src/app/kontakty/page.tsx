@@ -9,7 +9,12 @@ export const metadata: Metadata = {
     "MBA-parts: +7 915 308-88-84, Москва, ул. Кедрова, 13к2, mbaparts888@gmail.com, мессенджер MAX.",
 };
 
-export default function ContactsPage() {
+export default async function ContactsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ sent?: string; error?: string }>;
+}) {
+  const params = await searchParams;
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="text-3xl font-bold text-[#0b3a6e]">Контакты</h1>
@@ -81,7 +86,7 @@ export default function ContactsPage() {
             Укажите артикул, VIN или список деталей. Для юрлиц заполните поле
             «Компания» — подготовим счёт.
           </p>
-          <ContactForm />
+          <ContactForm sent={params.sent === "1"} error={params.error === "1"} />
         </div>
       </div>
     </div>
