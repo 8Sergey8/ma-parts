@@ -45,13 +45,13 @@ export default async function HomePage({
             Интернет-магазин оригинальных автозапчастей
           </p>
           <h1 className="max-w-3xl text-3xl leading-tight font-bold text-[#0b3a6e] md:text-5xl">
-            Оригинальные запчасти для всех марок MBA-parts
+            Оригинальные запчасти для BMW, Mercedes-Benz и VAG Group
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#2c4a66] md:text-lg">
-            MBA-parts с {site.foundedYear} года поставляет оригинал дилеров на
-            BMW, Mercedes-Benz, Audi, Škoda, Volkswagen, Porsche и Bentley —
-            не только на три автомобиля с фото ниже. Проверка каждой позиции,
-            гарантия и доставка по России.
+            MBA-parts с {site.foundedYear} года поставляет только оригинальные
+            детали официальных дилеров: BMW, Mercedes-Benz, Audi, Škoda,
+            Volkswagen, Porsche и Bentley. Проверка на целостность и
+            оригинальность каждой позиции, гарантия и доставка по России.
           </p>
           <div className="mt-8 max-w-2xl">
             <SearchBar size="lg" />
