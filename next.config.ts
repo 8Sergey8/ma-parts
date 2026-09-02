@@ -2,7 +2,21 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ["xlsx"],
-  allowedDevOrigins: ["127.0.0.1", "localhost"],
+  // Preview and desktop tunnels send a different Origin than 127.0.0.1.
+  // Without this list, Next.js dev blocks /_next CSS and JS (403).
+  allowedDevOrigins: [
+    "127.0.0.1",
+    "localhost",
+    "0.0.0.0",
+    "null",
+    "*.*.*.*",
+    "cursor.com",
+    "*.cursor.com",
+    "**.cursor.com",
+    "cursor.sh",
+    "*.cursor.sh",
+    "**.cursor.sh",
+  ],
 };
 
 export default nextConfig;
