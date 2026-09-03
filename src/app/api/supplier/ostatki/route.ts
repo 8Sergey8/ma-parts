@@ -1,9 +1,20 @@
 import { NextResponse } from "next/server";
-import { isAuthorized } from "@/lib/admin-auth";
+import { isSupplierAuthorized } from "@/lib/admin-auth";
 import { fileFromRequest, ingestPriceBuffer } from "@/lib/ingest-price";
 
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    method: "POST",
+    accept: "CSV, XLSX, XLS",
+    field: "file",
+    mode: "replace",
+    auth: "Authorization: Bearer <ключ>, заголовок X-Api-Key или ?key=",
+  });
+}
+
 export async function POST(request: Request) {
-  if (!isAuthorized(request)) {
+  if (!isSupplierAuthorized(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

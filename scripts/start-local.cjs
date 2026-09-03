@@ -83,11 +83,33 @@ async function main() {
 
   waitForServer().then(openBrowser);
 
+  const watcher = spawn(process.execPath, [path.join(__dirname, "watch-inbox.cjs")], {
+    cwd: root,
+    stdio: "inherit",
+    env: {
+      ...process.env,
+      MBA_SITE: url,
+      MBA_SUPPLIER_KEY: process.env.SUPPLIER_API_KEY || "mba-parts-local",
+    },
+  });
+
+  const stopWatcher = () => {
+    try {
+      watcher.kill();
+    } catch {
+      // already stopped
+    }
+  };
+
   child.on("error", (error) => {
     console.error(error);
+    stopWatcher();
     process.exit(1);
   });
-  child.on("exit", (code) => process.exit(code ?? 0));
+  child.on("exit", (code) => {
+    stopWatcher();
+    process.exit(code ?? 0);
+  });
 }
 
 main().catch((error) => {

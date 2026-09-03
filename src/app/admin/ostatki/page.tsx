@@ -37,6 +37,38 @@ export default async function InventoryAdminPage() {
 
       <InventoryUpload />
 
+      <section className="mt-6 rounded-2xl border border-[#d5e6f3] bg-white p-6">
+        <h2 className="font-semibold text-[#16324f]">
+          Автообновление от поставщика
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-[#2c4a66]">
+          Каждый день система поставщика может сама присылать CSV или Excel.
+          Сайт принимает файл, заменяет каталог, сам прибавляет 30% к цене.
+          Пока открыт Terminal с ./start.sh, это работает без ручной загрузки.
+        </p>
+        <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-[#2c4a66]">
+          <li>
+            Поставщик шлёт файл на адрес{" "}
+            <code className="rounded bg-[#f4f9fd] px-1">
+              POST /api/supplier/ostatki
+            </code>{" "}
+            с ключом <code className="rounded bg-[#f4f9fd] px-1">mba-parts-local</code>
+            .
+          </li>
+          <li>
+            Либо файл просто появляется в папке{" "}
+            <code className="rounded bg-[#f4f9fd] px-1">data/inbox</code>{" "}
+            (почта, FTP, Яндекс.Диск). Сайт подхватывает его сам.
+          </li>
+        </ol>
+        <pre className="mt-4 overflow-x-auto rounded-lg bg-[#0b3a6e] p-4 text-xs leading-relaxed text-white">
+{`curl -X POST http://127.0.0.1:43123/api/supplier/ostatki \\
+  -H "Authorization: Bearer mba-parts-local" \\
+  -F "mode=replace" \\
+  -F "file=@ostatki.xlsx"`}
+        </pre>
+      </section>
+
       <section className="mt-6 rounded-2xl border border-[#d5e6f3] bg-[#0b3a6e] p-6 text-sm text-white">
         <h2 className="font-semibold">API</h2>
         <p className="mt-2 text-white/80">

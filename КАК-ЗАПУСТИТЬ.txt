@@ -27,3 +27,6 @@ Cmd+Q в Terminal и снова шаг 2.
 
 Прайс: http://127.0.0.1:43123/admin/ostatki
 ключ: mba-parts-local
+
+Автозагрузка от поставщика: папка data/inbox
+или POST http://127.0.0.1:43123/api/supplier/ostatki
