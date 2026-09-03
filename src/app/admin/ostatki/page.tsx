@@ -14,8 +14,9 @@ export default async function InventoryAdminPage() {
       <h1 className="text-3xl font-bold text-[#0b3a6e]">Загрузка прайса</h1>
       <p className="mt-3 text-[#2c4a66]">
         Каталог, поиск и карточки на сайте берутся только из этого файла.
-        В файле должны быть артикул, цена и наличие по складам. Демо-номера из
-        кода больше не показываются.
+        В файле должны быть артикул, цена и наличие по складам. На сайте к
+        цене из прайса автоматически прибавляется 30% — в файл ничего
+        пересчитывать не нужно.
       </p>
 
       <div className="mt-6">
@@ -28,6 +29,7 @@ export default async function InventoryAdminPage() {
           <li>Позиций: {meta.count}</li>
           <li>Источник: {meta.empty ? "файл не загружен" : meta.source}</li>
           <li>Обновлён: {meta.empty ? "—" : formatDate(meta.updatedAt)}</li>
+          <li>Наценка на сайте: +30% к цене из файла</li>
         </ul>
       </section>
 

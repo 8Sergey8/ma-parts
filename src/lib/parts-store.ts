@@ -12,6 +12,7 @@ import {
   primaryOffer,
 } from "@/lib/availability";
 import { finalizePart, mergePartRows, rowsToParts } from "@/lib/price-file";
+import { withSitePrice } from "@/lib/pricing";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const INVENTORY_PATH = path.join(DATA_DIR, "inventory.json");
@@ -124,7 +125,7 @@ async function persist(file: InventoryFile) {
   }
 }
 
-export async function loadInventory(): Promise<InventoryFile> {
+async function loadStoredInventory(): Promise<InventoryFile> {
   try {
     const raw = await readFile(INVENTORY_PATH, "utf8");
     const parsed = JSON.parse(raw) as InventoryFile;
@@ -145,6 +146,18 @@ export async function loadInventory(): Promise<InventoryFile> {
   }
   memory = emptyInventory();
   return memory;
+}
+
+function withSitePrices(file: InventoryFile): InventoryFile {
+  return {
+    ...file,
+    parts: file.parts.map(withSitePrice),
+  };
+}
+
+/** Каталог для сайта: цены из прайса + наценка. */
+export async function loadInventory(): Promise<InventoryFile> {
+  return withSitePrices(await loadStoredInventory());
 }
 
 export async function searchParts(params: {
@@ -192,7 +205,7 @@ export async function replaceInventory(parts: Part[], source: string) {
 }
 
 export async function upsertParts(incoming: Part[], source = "api") {
-  const inventory = await loadInventory();
+  const inventory = await loadStoredInventory();
   return replaceInventory(
     mergePartRows([...inventory.parts, ...incoming]),
     source,
@@ -216,7 +229,7 @@ export function parseIncomingParts(payload: unknown): Part[] {
 export { rowsToParts };
 
 export async function inventoryMeta() {
-  const inventory = await loadInventory();
+  const inventory = await loadStoredInventory();
   return {
     updatedAt: inventory.updatedAt,
     source: inventory.source,
