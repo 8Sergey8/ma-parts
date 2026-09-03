@@ -1,20 +1,29 @@
-MBA-parts — запуск самой новой папки из Загрузок
-================================================
+MBA-parts — 5-я версия ZIP, запуск в Terminal
+=============================================
+
+Папка:
+
+  ~/Downloads/ma-parts-main-5
 
 1) Spotlight (Cmd + Пробел) → Terminal → Enter
 
 2) Вставьте весь блок и нажмите Enter:
 
-cd ~/Downloads
-ls -d ma-parts*
-DIR="$(ls -dt $HOME/Downloads/ma-parts-main* $HOME/Downloads/ma-parts 2>/dev/null | head -1)"
-echo "Запускаю: $DIR"
-cd "$DIR"
+cd ~/Downloads/ma-parts-main-5
 chmod +x start.sh
 ./start.sh
 
-3) Дождитесь Local: http://127.0.0.1:43123
-Окно Terminal не закрывайте.
+3) Дождитесь:
+   Local: http://127.0.0.1:43123
+Safari откроется сам. Terminal не закрывайте.
+
+Если «No such file or directory»:
+
+cd ~/Downloads
+ls -d ma-parts*
 
 Если Node.js не найден: https://nodejs.org (macOS), затем
-Cmd+Q в Terminal и повторите шаг 2.
+Cmd+Q в Terminal и снова шаг 2.
+
+Прайс: http://127.0.0.1:43123/admin/ostatki
+ключ: mba-parts-local
