@@ -12,7 +12,6 @@ import { AvailabilityLegend } from "@/components/availability";
 import { BrandCatalogSections } from "@/components/brand-catalog";
 import { BrandLogos } from "@/components/brand-logos";
 import { CarShowcase } from "@/components/car-showcase";
-import { EmptyPriceList } from "@/components/empty-price-list";
 import { SearchBar } from "@/components/search-bar";
 import { VinSearch } from "@/components/vin-search";
 import { featuredByBrand } from "@/lib/catalog";
@@ -55,10 +54,6 @@ export default async function HomePage({
           </p>
           <div className="mt-8 max-w-2xl">
             <SearchBar size="lg" />
-            <p className="mt-2 text-sm text-[#5a7a96]">
-              Ищите только по позициям из загруженного прайса: артикул, цена и
-              срок поставки.
-            </p>
           </div>
           <div className="mt-6 max-w-2xl">
             <p className="mb-2 text-sm font-semibold text-[#0b3a6e]">
@@ -93,10 +88,6 @@ export default async function HomePage({
             <h2 className="text-2xl font-bold text-[#16324f]">
               Склад по маркам
             </h2>
-            <p className="mt-1 max-w-2xl text-sm text-[#5a7a96]">
-              Карточки появляются только из загруженного прайса. Артикул, цена
-              и срок поставки — из файла, не из демо-каталога.
-            </p>
           </div>
           <Link
             href="/katalog"
@@ -108,9 +99,7 @@ export default async function HomePage({
         <div className="mb-8">
           <AvailabilityLegend />
         </div>
-        {byBrand.length === 0 ? (
-          <EmptyPriceList />
-        ) : (
+        {byBrand.length === 0 ? null : (
           <BrandCatalogSections
             groups={byBrand}
             added={added}
@@ -133,7 +122,7 @@ export default async function HomePage({
               {
                 icon: ShieldCheck,
                 title: "Только оригинал",
-                text: "Запчасти от официальных дилеров BMW, Mercedes-Benz и концерна VAG. Без аналогов и «контракта».",
+                text: "Запчасти от официальных дилеров BMW, Mercedes-Benz и концерна VAG. Без аналогов и «контрафакта».",
               },
               {
                 icon: BadgeCheck,

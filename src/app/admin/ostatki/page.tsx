@@ -1,6 +1,7 @@
 import { inventoryMeta } from "@/lib/parts-store";
 import { InventoryUpload } from "./upload-form";
 import { AvailabilityLegend } from "@/components/availability";
+import { EmptyPriceList } from "@/components/empty-price-list";
 import { formatDate } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -29,6 +30,8 @@ export default async function InventoryAdminPage() {
           <li>Обновлён: {meta.empty ? "—" : formatDate(meta.updatedAt)}</li>
         </ul>
       </section>
+
+      {meta.empty ? <EmptyPriceList /> : null}
 
       <InventoryUpload />
 
