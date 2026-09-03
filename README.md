@@ -6,17 +6,20 @@
 
 ## Запуск на своём компьютере
 
-## Запуск на Mac из ZIP (Terminal)
+## Запуск на Mac (последняя версия)
 
-Если скачали архив с GitHub и распаковали его как `ma-parts-main-3`:
+ZIP из Загрузок (`ma-parts-main-3` и подобные) не обновляется. В Terminal:
 
 ```bash
-cd ~/Downloads/ma-parts-main-3
+cd ~
+rm -rf ma-parts
+git clone https://github.com/8Sergey8/ma-parts.git ma-parts
+cd ma-parts
 chmod +x start.sh
 ./start.sh
 ```
 
-Сайт: [http://127.0.0.1:43123](http://127.0.0.1:43123). Окно Terminal не закрывайте.
+Сайт: [http://127.0.0.1:43123](http://127.0.0.1:43123). Если `git: command not found` — один раз `xcode-select --install`, затем закройте Terminal и повторите.
 
 Нужен [Node.js 20+](https://nodejs.org). Подробности: `КАК-ЗАПУСТИТЬ.txt`.
 

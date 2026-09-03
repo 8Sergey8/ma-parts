@@ -1,33 +1,33 @@
-MBA-parts — запуск из ZIP через Terminal
-========================================
+MBA-parts — последняя версия через Terminal
+===========================================
 
-Папка с сайта GitHub после третьего скачивания обычно такая:
-
-  ~/Downloads/ma-parts-main-3
+Папки ma-parts-main, ma-parts-main-2, ma-parts-main-3 из ZIP
+не обновляются. Нужна новая копия с GitHub.
 
 1) Spotlight (Cmd + Пробел) → Terminal → Enter
 
-2) Один раз должен быть Node.js 20+: https://nodejs.org
-   Проверка: node -v
+2) Если Git ещё не ставили, один раз (появится окно установки, дождитесь конца):
 
-3) Скопируйте весь блок в Terminal и нажмите Enter:
+xcode-select --install
 
-cd ~/Downloads/ma-parts-main-3
+3) Скопируйте ВЕСЬ блок и нажмите Enter:
+
+cd ~
+rm -rf ma-parts
+git clone https://github.com/8Sergey8/ma-parts.git ma-parts
+cd ma-parts
 chmod +x start.sh
 ./start.sh
 
-Если Terminal напишет «No such file or directory», папка называется иначе.
-Тогда сначала:
-
-cd ~/Downloads
-ls -d ma-parts*
-
-и подставьте точное имя, например ma-parts-main или ma-parts-main-2.
-
-4) Дождитесь строки:
+4) Дождитесь:
    Local: http://127.0.0.1:43123
-Safari откроется сам или вставьте адрес вручную.
-Окно Terminal не закрывайте.
+Safari откроется сам. Terminal не закрывайте.
 
-5) Прайс: http://127.0.0.1:43123/admin/ostatki
-   ключ: mba-parts-local
+Если напишет «git: command not found» — выполните шаг 2, закройте
+Terminal через Cmd+Q, откройте снова и повторите шаг 3.
+
+Если Node.js не найден: https://nodejs.org (кнопка macOS), затем
+закройте Terminal и повторите шаг 3.
+
+Прайс: http://127.0.0.1:43123/admin/ostatki
+ключ: mba-parts-local
