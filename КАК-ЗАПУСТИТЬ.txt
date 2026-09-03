@@ -1,33 +1,30 @@
-MBA-parts — последняя версия через Terminal
-===========================================
+MBA-parts — запуск 4-й версии ZIP через Terminal
+================================================
 
-Папки ma-parts-main, ma-parts-main-2, ma-parts-main-3 из ZIP
-не обновляются. Нужна новая копия с GitHub.
+Папка:
+
+  ~/Downloads/ma-parts-main-4
 
 1) Spotlight (Cmd + Пробел) → Terminal → Enter
 
-2) Если Git ещё не ставили, один раз (появится окно установки, дождитесь конца):
+2) Скопируйте весь блок и нажмите Enter:
 
-xcode-select --install
-
-3) Скопируйте ВЕСЬ блок и нажмите Enter:
-
-cd ~
-rm -rf ma-parts
-git clone https://github.com/8Sergey8/ma-parts.git ma-parts
-cd ma-parts
+cd ~/Downloads/ma-parts-main-4
 chmod +x start.sh
 ./start.sh
 
-4) Дождитесь:
-   Local: http://127.0.0.1:43123
+3) Дождитесь Local: http://127.0.0.1:43123
 Safari откроется сам. Terminal не закрывайте.
 
-Если напишет «git: command not found» — выполните шаг 2, закройте
-Terminal через Cmd+Q, откройте снова и повторите шаг 3.
+Если «No such file or directory»:
 
-Если Node.js не найден: https://nodejs.org (кнопка macOS), затем
-закройте Terminal и повторите шаг 3.
+cd ~/Downloads
+ls -d ma-parts*
+
+и подставьте точное имя папки в команду cd.
+
+Если Node.js не найден: https://nodejs.org (macOS), затем
+закройте Terminal через Cmd+Q и повторите шаг 2.
 
 Прайс: http://127.0.0.1:43123/admin/ostatki
 ключ: mba-parts-local
