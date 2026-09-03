@@ -6,10 +6,10 @@
 
 ## Запуск на своём компьютере
 
-## Запуск на Mac из ZIP (5-я версия)
+## Запуск на Mac из ZIP (6-я версия)
 
 ```bash
-cd ~/Downloads/ma-parts-main-5
+cd ~/Downloads/ma-parts-main-6
 chmod +x start.sh
 ./start.sh
 ```

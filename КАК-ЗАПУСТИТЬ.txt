@@ -1,15 +1,15 @@
-MBA-parts — 5-я версия ZIP, запуск в Terminal
+MBA-parts — 6-я версия ZIP, запуск в Terminal
 =============================================
 
 Папка:
 
-  ~/Downloads/ma-parts-main-5
+  ~/Downloads/ma-parts-main-6
 
 1) Spotlight (Cmd + Пробел) → Terminal → Enter
 
 2) Вставьте весь блок и нажмите Enter:
 
-cd ~/Downloads/ma-parts-main-5
+cd ~/Downloads/ma-parts-main-6
 chmod +x start.sh
 ./start.sh
 

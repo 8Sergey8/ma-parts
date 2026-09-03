@@ -8,7 +8,7 @@ echo
 
 if [ ! -f package.json ]; then
   echo "Здесь нет сайта. Нужна папка ZIP, например:"
-  echo "  cd ~/Downloads/ma-parts-main-3"
+  echo "  cd ~/Downloads/ma-parts-main-6"
   echo "  ./start.sh"
   exit 1
 fi
